@@ -1,0 +1,111 @@
+---
+description: 
+globs: *.swift
+alwaysApply: false
+---
+# Swift/iOS Development Guidelines for Cursor
+
+## OS vesrion
+
+Minimum support version: iOS 15
+
+## Communication
+
+- Use simple, easy-to-understand Vietnamese to explain concepts. Keep technical terms in English to ensure accuracy.
+
+## Code Structure & Organization
+
+- **File Organization**: One class/struct per file, named after the main type
+- **Group Structure**: Organize by feature/module, not by file type
+- **MARK Comments**: Use `// MARK: -` to separate logical sections
+- **Extensions**: Place protocol conformance in separate extensions
+
+## Naming Conventions
+
+- **Types**: PascalCase (`UserProfileViewController`, `NetworkManager`)
+- **Variables/Functions**: camelCase (`userName`, `fetchUserData()`)
+- **Constants**: camelCase with descriptive names (`maxRetryCount`, `defaultAnimationDuration`)
+- **Protocols**: Descriptive nouns or adjectives ending in `-able` when appropriate (`Drawable`, `NetworkServiceProtocol`)
+
+## Swift Language Best Practices
+
+- **Optionals**: Use optional binding (`if let`, `guard let`) over force unwrapping
+- **Type Inference**: Let Swift infer types when clear from context
+- **Access Control**: Use `private`, `fileprivate`, `internal`, `public` appropriately
+- **Mutating**: Mark mutating functions explicitly
+- **Value Types**: Prefer structs over classes when inheritance isn't needed
+
+## iOS Architecture Patterns
+
+- **MVVM**: Use for complex UI logic with data binding
+- **Coordinator Pattern**: Implement for navigation flow management
+- **Dependency Injection**: Pass dependencies through initializers
+- **Repository Pattern**: Abstract data layer operations
+
+## Memory Management
+
+- **Weak References**: Use `weak` for delegate patterns and parent-child relationships
+- **Unowned**: Only when certain the reference will never be nil
+- **Capture Lists**: Use `[weak self]` in closures to avoid retain cycles
+- **Automatic Reference Counting**: Trust ARC, but watch for retain cycles
+
+## Error Handling
+
+- **Swift Errors**: Implement custom error types conforming to `Error`
+- **Result Type**: Use `Result<Success, Failure>` for async operations
+- **Do-Catch**: Prefer do-catch over try? when error handling is important
+- **Error Propagation**: Use `throws` for functions that can fail
+
+## UI Development
+
+- **Programmatic UI**: Prefer programmatic constraints over Storyboards for complex layouts
+- **Auto Layout**: Use constraint priorities and compression resistance
+- **Dark Mode**: Support both light and dark mode appearances
+- **Accessibility**: Implement VoiceOver support with appropriate labels
+
+## Networking & Data
+
+- **URLSession**: Use modern async/await APIs
+- **Codable**: Implement for JSON serialization/deserialization
+- **Core Data**: Use NSPersistentContainer and background contexts
+- **Keychain**: Store sensitive data in Keychain, not UserDefaults
+
+## Testing
+
+- **Unit Tests**: Test business logic and data transformations
+- **UI Tests**: Test critical user flows only
+- **Mock Objects**: Create protocol-based mocks for external dependencies
+- **Test Naming**: Use descriptive test method names
+
+## Performance
+
+- **Lazy Loading**: Use lazy properties for expensive computations
+- **Instruments**: Profile with Instruments for memory and performance issues
+- **Image Optimization**: Use appropriate image formats and sizes
+- **Background Processing**: Use background queues for heavy operations
+## Code Quality
+
+- **SwiftLint**: Follow SwiftLint rules for consistent formatting
+- **Documentation**: Use `///` for public APIs
+- **TODO/FIXME**: Use sparingly with context and ownership
+- **Magic Numbers**: Extract into named constants
+
+## Formatting
+
+- Follow consistent indentation and naming conventions
+- Organize code logically with related functions grouped together
+- Use meaningful variable and function names
+
+## Documentation
+
+- Include clear comments for complex functions and algorithms
+- Provide a brief overview of the code structure at the beginning of each file
+- Document any assumptions made during implementation
+
+## Coding Practices
+
+- Explain the reasoning behind important code decisions
+- Provide brief examples for complex concepts
+- Include usage instructions when introducing new functions or libraries
+- Highlight potential edge cases or performance considerations
+- Recommend alternative approaches when relevant
