@@ -156,6 +156,8 @@
 /* Begin XCBuildConfiguration section */
 		3456AE2F2DF038C60005F595 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 340F3A522E00662A00D907CC /* Configurations */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -164,7 +166,7 @@
 				DEVELOPMENT_TEAM = HL5737X75Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyNews/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Daily News";
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -176,7 +178,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNews;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -190,6 +192,8 @@
 		};
 		3456AE302DF038C60005F595 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 340F3A522E00662A00D907CC /* Configurations */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -198,7 +202,7 @@
 				DEVELOPMENT_TEAM = HL5737X75Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DailyNews/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Daily News";
+				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -210,7 +214,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNews;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
