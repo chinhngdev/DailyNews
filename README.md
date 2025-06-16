@@ -4,32 +4,43 @@ The daily news reader for your Apple devices.
 # Project's Folder Structure
 
 ```
-Presentation/
-├── DesignSystem/
-│   ├── Spacing/
-│   │   ├── AppSpacing.swift
-│   │   └── SpacingExtensions.swift
-│   ├── Colors/
-│   │   ├── AppColors.swift
-│   │   └── ColorExtensions.swift
-│   ├── Typography/
-│   │   ├── AppFonts.swift
-│   │   ├── AppTextStyles.swift
-│   │   └── TypographyExtensions.swift
-│   ├── Components/
-│   │   ├── Buttons/
-│   │   ├── Cards/
-│   │   ├── TextFields/
-│   │   └── LoadingViews/
-│   ├── Icons/
-│   │   ├── AppIcons.swift
-│   │   └── IconExtensions.swift
-│   ├── Animations/
-│   │   ├── AppAnimations.swift
-│   │   └── AnimationExtensions.swift
-│   └── Layout/
-│       ├── AppLayout.swift
-│       └── LayoutExtensions.swift
-└── Scenes/
-    └── [Features]/
+.
+├── DailyNews
+│   ├── DailyNews
+│   │   ├── Application
+│   │   │   ├── AppDelegate.swift
+│   │   │   └── SceneDelegate.swift
+│   │   ├── Assets.xcassets
+│   │   │   ├── AccentColor.colorset
+│   │   │   │   └── Contents.json
+│   │   │   ├── AppIcon.appiconset
+│   │   │   │   └── Contents.json
+│   │   │   └── Contents.json
+│   │   ├── Base.lproj
+│   │   │   └── LaunchScreen.storyboard
+│   │   ├── Data
+│   │   ├── Domain
+│   │   ├── Info.plist
+│   │   ├── Infrastructure
+│   │   ├── Presentation
+│   │   │   ├── DesignSystem
+│   │   │   │   └── AppSpacing.swift
+│   │   │   └── Scenes
+│   │   └── ViewController.swift
+│   └── DailyNews.xcodeproj
+│       ├── project.pbxproj
+│       ├── project.xcworkspace
+│       │   ├── contents.xcworkspacedata
+│       │   ├── xcshareddata
+│       │   │   └── swiftpm
+│       │   │       └── configuration
+│       │   └── xcuserdata
+│       │       └── chinh.xcuserdatad
+│       │           └── UserInterfaceState.xcuserstate
+│       └── xcuserdata
+│           └── chinh.xcuserdatad
+│               └── xcschemes
+│                   └── xcschememanagement.plist
+├── LICENSE
+└── README.md
 ```
