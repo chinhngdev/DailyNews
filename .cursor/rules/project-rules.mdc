@@ -9,10 +9,6 @@ alwaysApply: false
 
 Minimum support version: iOS 15
 
-## Communication
-
-- Use simple, easy-to-understand Vietnamese to explain concepts. Keep technical terms in English to ensure accuracy.
-
 ## Code Structure & Organization
 
 - **File Organization**: One class/struct per file, named after the main type
