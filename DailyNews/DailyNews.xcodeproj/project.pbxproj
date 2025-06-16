@@ -25,6 +25,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		340F3A522E00662A00D907CC /* Configurations */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		3456AE1D2DF038C50005F595 /* DailyNews */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -50,6 +55,7 @@
 		3456AE122DF038C50005F595 = {
 			isa = PBXGroup;
 			children = (
+				340F3A522E00662A00D907CC /* Configurations */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
 				3456AE1C2DF038C50005F595 /* Products */,
 			);
@@ -79,6 +85,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				340F3A522E00662A00D907CC /* Configurations */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
 			);
 			name = DailyNews;
@@ -217,6 +224,8 @@
 		};
 		3456AE312DF038C60005F595 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 340F3A522E00662A00D907CC /* Configurations */;
+			baseConfigurationReferenceRelativePath = Debug.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -281,6 +290,8 @@
 		};
 		3456AE322DF038C60005F595 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 340F3A522E00662A00D907CC /* Configurations */;
+			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

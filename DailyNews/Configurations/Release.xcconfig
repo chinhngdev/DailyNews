@@ -1,0 +1,39 @@
+//
+//  Release.xcconfig
+//  DailyNews
+//
+//  Created by Chinh on 6/16/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+#include "Base.xcconfig"
+
+// MARK: - Release Specific App Information
+PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNews
+INFOPLIST_KEY_CFBundleDisplayName = Daily News
+
+// MARK: - Release Swift Configuration
+SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_OPTIMIZATION_LEVEL = -O
+
+// MARK: - Release Build Settings
+GCC_OPTIMIZATION_LEVEL = s
+ENABLE_TESTABILITY = NO
+ONLY_ACTIVE_ARCH = NO
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+COPY_PHASE_STRIP = NO
+VALIDATE_PRODUCT = YES
+
+// MARK: - Release Specific Settings
+ENABLE_NS_ASSERTIONS = NO
+
+// MARK: - API Configuration (for Production environment)
+API_BASE_URL = https://api.dailynews.com
+API_TIMEOUT = 15
+ENABLE_LOGGING = NO
+
+// MARK: - Security & Performance
+STRIP_INSTALLED_PRODUCT = YES
+DEPLOYMENT_POSTPROCESSING = YES

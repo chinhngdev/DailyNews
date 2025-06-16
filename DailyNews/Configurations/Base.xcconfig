@@ -1,0 +1,59 @@
+//
+//  Base.xcconfig
+//  DailyNews
+//
+//  Created by Chinh on 6/16/25.
+//
+
+// MARK: - Shared Configuration Settings
+// This file contains settings that are common across all build configurations
+
+// MARK: - App Information
+PRODUCT_NAME = DailyNews
+
+// MARK: - Versioning
+MARKETING_VERSION = 1.0
+CURRENT_PROJECT_VERSION = 1
+
+// MARK: - Deployment
+IPHONEOS_DEPLOYMENT_TARGET = 15.0
+TARGETED_DEVICE_FAMILY = 1
+SUPPORTED_PLATFORMS = iphoneos iphonesimulator
+
+// MARK: - Swift Configuration
+SWIFT_VERSION = 5.0
+SWIFT_EMIT_LOC_STRINGS = YES
+
+// MARK: - Code Signing
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM = Enter_Your_Team_Id
+
+// MARK: - Asset Catalog
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
+
+// MARK: - Info.plist
+GENERATE_INFOPLIST_FILE = YES
+INFOPLIST_FILE = DailyNews/Info.plist
+INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.news
+INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES
+INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+
+// MARK: - Linking
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
+
+// MARK: - Platform Support
+SUPPORTS_MACCATALYST = NO
+SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO
+SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO
+
+// MARK: - Common Warnings
+ENABLE_STRICT_OBJC_MSGSEND = YES
+GCC_NO_COMMON_BLOCKS = YES
+GCC_WARN_64_TO_32_BIT_CONVERSION = YES
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR
+GCC_WARN_UNDECLARED_SELECTOR = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
+GCC_WARN_UNUSED_FUNCTION = YES
+GCC_WARN_UNUSED_VARIABLE = YES 

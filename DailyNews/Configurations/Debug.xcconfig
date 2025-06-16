@@ -1,0 +1,34 @@
+//
+//  Debug.xcconfig
+//  DailyNews
+//
+//  Created by Chinh on 6/16/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+#include "Base.xcconfig"
+
+// MARK: - Debug Specific App Information
+PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNews.debug
+INFOPLIST_KEY_CFBundleDisplayName = Daily News (Debug)
+
+// MARK: - Debug Swift Configuration
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+
+// MARK: - Debug Build Settings
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+ENABLE_TESTABILITY = YES
+ONLY_ACTIVE_ARCH = YES
+DEBUG_INFORMATION_FORMAT = dwarf
+
+// MARK: - Debug Specific Settings
+ENABLE_NS_ASSERTIONS = YES
+
+// MARK: - API Configuration (for Debug environment)
+API_BASE_URL = https://api.dailynews.dev
+API_TIMEOUT = 30
+ENABLE_LOGGING = YES
