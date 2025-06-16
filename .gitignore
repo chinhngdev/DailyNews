@@ -1,62 +1,176 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+# ========================
+# .gitignore for iOS/Xcode Projects 2025
+# ========================
+# Comprehensive ignore patterns for modern iOS development
+# Supports: Xcode 15+, Swift 5.5+, iOS 15+
 
-## User settings
+# --- User-specific Files (HIGH PRIORITY) ---
+# These files contain personal settings and should NEVER be committed
 xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
 
-## Obj-C/Swift specific
-*.hmap
+# User-specific project settings
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
 
-## App packaging
-*.ipa
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trashes
+._*
+
+# --- Xcode Build Artifacts ---
+# Build output and derived data
+build/
+DerivedData/
+*.build/
+*.xcarchive/
+
+# Debugging and profiling
 *.dSYM.zip
-*.dSYM
+*.dSYM/
+*.gcno
+*.gcda
 
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+# --- Modern Xcode Features ---
+# Source control management (Xcode 5+)
+*.xcscmblueprint
+*.xccheckout
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
+# Xcode Schemes (optional - team preference)
+# Uncomment if you want to ignore schemes
+# *.xcscheme
 
+# --- Swift Package Manager ---
 .build/
+.swiftpm/
+Package.resolved
+.package.resolved
+# Keep Package.swift - this should be committed
+
+# SPM build artifacts for Xcode
+.swiftpm/xcode/package.xcworkspace/
+.swiftpm/configuration/
+
+# --- Dependency Managers ---
 
 # CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+Pods/
+!Pods/.gitignore
+*.podspec
+Podfile.lock
 
 # Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
 Carthage/Build/
+Carthage/Checkouts/
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
+# Accio dependency management
+Dependencies/
+.accio/
 
+# --- CI/CD & Automation ---
+
+# Fastlane
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
+fastlane/test_output/
 fastlane/test_output
+fastlane/README.md
+
+# --- Testing & Profiling ---
+# Test results and coverage
+*.xcresult/
+*.gcov
+coverage.lcov
+DerivedData/
+
+# Instruments profiling data
+*.trace
+
+# --- Development Tools ---
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# AppCode (JetBrains IDE)
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+*.code-snippets
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# --- Network & API ---
+# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+
+# API keys and configuration (SECURITY CRITICAL)
+**/APIKeys.swift
+**/Config.swift
+**/Secrets.swift
+**/*APIKey*
+**/*Secret*
+**/*Config*.plist
+
+# --- Documentation & Assets ---
+
+# Generated documentation
+docs/
+Documentation/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~.nib
+*.moved-aside
+*.bak
+
+# Log files
+*.log
+
+# --- Project-specific Ignores ---
+# Add your custom ignores below this line
+# Example:
+# MyProject/Resources/Private/
+# MyProject/Analytics/
+
+# --- Optional: Team Collaboration ---
+# Uncomment these if your team agrees to ignore them
+
+# Xcode workspace settings (some teams prefer to commit these)
+# *.xcworkspace
+# !*.xcworkspace/contents.xcworkspacedata
+
+# Scheme files (some teams prefer to commit shared schemes)
+# *.xcscheme
+# !*.xcscheme/xcshareddata/
+
+# --- Git LFS (Large File Storage) ---
+# If using Git LFS for large assets, patterns go here
+# *.png filter=lfs diff=lfs merge=lfs -text
+# *.jpg filter=lfs diff=lfs merge=lfs -text
+# *.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# --- End of Generated Content ---
+# Manual additions below
