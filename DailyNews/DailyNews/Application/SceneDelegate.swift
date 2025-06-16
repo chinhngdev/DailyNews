@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private var appCoordinator: AppCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,12 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         // Tạo instance của ViewController
-        let viewController = ViewController()
+        let navigationController = UINavigationController()
         
         // Đặt ViewController làm root view controller
-        window?.rootViewController = viewController
+        appCoordinator = AppCoordinator(navigationController: navigationController)
+        appCoordinator?.start()
         
         // Hiển thị window
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
