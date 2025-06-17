@@ -8,9 +8,6 @@
 // MARK: - Shared Configuration Settings
 // This file contains settings that are common across all build configurations
 
-// MARK: - App Information
-PRODUCT_NAME = DailyNews
-
 // MARK: - Versioning
 MARKETING_VERSION = 1.0
 CURRENT_PROJECT_VERSION = 1
