@@ -1,6 +1,6 @@
 ---
 description: 
-globs: *.swift
+globs: 
 alwaysApply: false
 ---
 # Swift/iOS Development Guidelines for Cursor
