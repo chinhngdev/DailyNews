@@ -149,6 +149,9 @@ Documentation/
 # Log files
 *.log
 
+# TCAssets generated files
+TCAssets/Sources/TCAssets/Generated/
+
 # --- Project-specific Ignores ---
 # Add your custom ignores below this line
 # Example:

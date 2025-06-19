@@ -1,0 +1,67 @@
+# SwiftGen Configuration for TCAssets Package
+# Place this file in TCAssets root directory
+
+# Set input and output directories relative to package root
+input_dir: Resources
+output_dir: Sources/TCAssets/Generated
+
+# MARK: - XCASSETS (Images, Colors, Data)
+xcassets:
+  inputs:
+    - Resources/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      output: Assets.swift
+      params:
+        forceProvidesNamespaces: true
+        allValues: true
+        publicAccess: true
+        enumName: Asset
+
+# MARK: - STRINGS (Localizations)
+strings:
+  inputs:
+    - Resources/Localizations
+  filter: ^.+\.strings$
+  outputs:
+    - templateName: structured-swift5
+      output: Strings.swift
+      params:
+        enumName: L10n
+        publicAccess: true
+
+# MARK: - COLORS (Named Colors from Assets)
+colors:
+  inputs:
+    - Resources/Assets.xcassets
+  filter: ^.+\.colorset$
+  outputs:
+    - templateName: swift5
+      output: Colors.swift
+      params:
+        enumName: ColorName
+        publicAccess: true
+
+# MARK: - FONTS (Custom Fonts)
+fonts:
+  inputs:
+    - Resources/Fonts
+  filter: ^.+\.(otf|ttf)$
+  outputs:
+    - templateName: swift5
+      output: Fonts.swift
+      params:
+        enumName: FontFamily
+        publicAccess: true
+
+# MARK: - JSON/PLIST (Configuration files)
+plist:
+  inputs:
+    - Resources
+  filter: ^.+\.plist$
+  outputs:
+    - templateName: runtime-swift5
+      output: Plists.swift
+      params:
+        enumName: PlistFiles
+        publicAccess: true
