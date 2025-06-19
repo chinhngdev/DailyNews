@@ -1,8 +1,7 @@
 # SwiftGen Configuration for TCAssets Package
 # Place this file in TCAssets root directory
 
-# Set input and output directories relative to package root
-input_dir: Resources
+# Set output directory relative to package root
 output_dir: Sources/TCAssets/Generated
 
 # MARK: - XCASSETS (Images, Colors, Data)
