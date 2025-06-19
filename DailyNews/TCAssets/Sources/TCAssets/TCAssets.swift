@@ -12,6 +12,10 @@ import UIKit
 import AppKit
 #endif
 
+// Import generated assets to make them available when importing TCAssets
+// This ensures L10n, Asset, FontFamily, and other generated types are accessible
+@_exported import Foundation
+
 /// TCAssets provides type-safe access to all application resources
 /// including images, colors, strings, fonts, and other assets.
 ///
