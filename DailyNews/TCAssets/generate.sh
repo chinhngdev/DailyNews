@@ -21,7 +21,7 @@ echo -e "${BLUE}🔨 TCAssets Generation Started${NC}"
 echo "📁 Working directory: $SCRIPT_DIR"
 
 # Check if SwiftGen is installed
-if ! command -v swiftgen &> /dev/null; then
+if ! command -v swiftgen > /dev/null 2>&1; then
     echo -e "${RED}❌ SwiftGen is not installed${NC}"
     echo -e "${YELLOW}💡 Install with: brew install swiftgen${NC}"
     exit 1
@@ -56,7 +56,7 @@ fi
 echo -e "${BLUE}📋 Input resources:${NC}"
 RESOURCES_DIR="$SCRIPT_DIR/Resources"
 if [ -d "$RESOURCES_DIR" ]; then
-    find "$RESOURCES_DIR" -type f -name "*.xcassets" -o -name "*.strings" -o -name "*.ttf" -o -name "*.otf" | while read -r file; do
+    find "$RESOURCES_DIR" -type f \( -name "*.xcassets" -o -name "*.strings" -o -name "*.ttf" -o -name "*.otf" \) | while read -r file; do
         echo "   📄 $(basename "$file")"
     done
 else
@@ -96,7 +96,7 @@ test_swift_compilation() {
     local sdk_flag="$3"
     
     if [ -n "$sdk_flag" ]; then
-        if xcrun -sdk "$sdk_flag" swift -frontend -parse "$file" &>/dev/null; then
+        if xcrun -sdk "$sdk_flag" swift -frontend -parse "$file" > /dev/null 2>&1; then
             echo -e "${GREEN}✅ $(basename "$file") - syntax valid ($platform)${NC}"
             return 0
         else
@@ -104,7 +104,7 @@ test_swift_compilation() {
             return 1
         fi
     else
-        if swift -frontend -parse "$file" &>/dev/null; then
+        if swift -frontend -parse "$file" > /dev/null 2>&1; then
             echo -e "${GREEN}✅ $(basename "$file") - syntax valid ($platform)${NC}"
             return 0
         else
@@ -118,7 +118,7 @@ test_swift_compilation() {
 for swift_file in "$GENERATED_DIR"/*.swift; do
     if [ -f "$swift_file" ]; then
         # Test for iOS (primary target)
-        if command -v xcrun &> /dev/null; then
+        if command -v xcrun > /dev/null 2>&1; then
             if ! test_swift_compilation "$swift_file" "iOS" "iphonesimulator"; then
                 VALIDATION_PASSED=false
             fi
@@ -138,23 +138,23 @@ fi
 
 # Optional: Test package compilation
 echo -e "${BLUE}🧪 Testing package compilation...${NC}"
-if command -v xcrun &> /dev/null; then
+if command -v xcrun > /dev/null 2>&1; then
     echo -e "${BLUE}   Testing iOS build...${NC}"
-    if xcrun -sdk iphonesimulator swift build &>/dev/null; then
+    if xcrun -sdk iphonesimulator swift build > /dev/null 2>&1; then
         echo -e "${GREEN}✅ iOS package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  iOS package build failed (may be normal if dependencies missing)${NC}"
     fi
     
     echo -e "${BLUE}   Testing macOS build...${NC}"
-    if swift build &>/dev/null; then
+    if swift build > /dev/null 2>&1; then
         echo -e "${GREEN}✅ macOS package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  macOS package build failed (may be normal if UIKit dependencies)${NC}"
     fi
 else
     echo -e "${BLUE}   Testing default build...${NC}"
-    if swift build &>/dev/null; then
+    if swift build > /dev/null 2>&1; then
         echo -e "${GREEN}✅ Package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  Package build failed (check dependencies)${NC}"
