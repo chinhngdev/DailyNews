@@ -9,6 +9,7 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Base.xcconfig"
+#include "APIKeys.xcconfig"
 
 // MARK: - Release Specific App Information
 PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNews
@@ -30,9 +31,13 @@ VALIDATE_PRODUCT = YES
 ENABLE_NS_ASSERTIONS = NO
 
 // MARK: - API Configuration (for Production environment)
-API_BASE_URL = https://api.dailynews.com
+// API keys are now imported from APIKeys.xcconfig
+API_BASE_URL = $(NEWS_API_BASE_URL)
 API_TIMEOUT = 15
 ENABLE_LOGGING = NO
+
+// Production specific API settings
+USE_STAGING_ENDPOINTS = NO
 
 // MARK: - Security & Performance
 STRIP_INSTALLED_PRODUCT = YES
