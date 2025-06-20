@@ -16,6 +16,7 @@ xcassets:
         allValues: true
         publicAccess: true
         enumName: Asset
+        bundle: BundleToken.bundle
 
 # MARK: - STRINGS (Localizations)
 strings:
@@ -28,6 +29,7 @@ strings:
       params:
         enumName: L10n
         publicAccess: true
+        bundle: BundleToken.bundle
 
 # MARK: - COLORS (Named Colors from Assets)
 colors:
@@ -40,6 +42,7 @@ colors:
       params:
         enumName: ColorName
         publicAccess: true
+        bundle: BundleToken.bundle
 
 # MARK: - FONTS (Custom Fonts)
 fonts:
@@ -52,6 +55,7 @@ fonts:
       params:
         enumName: FontFamily
         publicAccess: true
+        bundle: BundleToken.bundle
 
 # MARK: - JSON/PLIST (Configuration files)
 plist:
@@ -64,3 +68,4 @@ plist:
       params:
         enumName: PlistFiles
         publicAccess: true
+        bundle: BundleToken.bundle

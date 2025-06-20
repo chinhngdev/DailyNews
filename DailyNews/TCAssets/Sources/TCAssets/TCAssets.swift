@@ -61,8 +61,24 @@ public enum TCAssets {
 }
 
 // MARK: - Bundle Token
-private final class BundleToken {
+public final class BundleToken {
     // This class is used to locate the bundle containing TCAssets resources
+    public static let bundle: Bundle = {
+        let candidateBundle = Bundle(for: BundleToken.self)
+        
+        #if SWIFT_PACKAGE
+        // Try to find the bundle containing resources
+        if let bundleURL = candidateBundle.url(forResource: "TCAssets_TCAssets", withExtension: "bundle") {
+            return Bundle(url: bundleURL) ?? candidateBundle
+        }
+        
+        if let bundleURL = candidateBundle.url(forResource: "TCAssets", withExtension: "bundle") {
+            return Bundle(url: bundleURL) ?? candidateBundle
+        }
+        #endif
+        
+        return candidateBundle
+    }()
 }
 
 // MARK: - Cross-Platform Type Aliases
@@ -198,11 +214,24 @@ public extension TCAssets {
                     print("     ... and \(contents.count - 10) more")
                 }
             } catch {
-                print("   Error reading resources: \(error)")
+                print("   Error reading bundle directory: \(error)")
             }
         }
+    }
+    
+    /// Test resource loading
+    static func testResourceLoading() {
+        print("🧪 Testing Resource Loading:")
         
-        printAvailableBundles()
+        // Test bundle access
+        print("   Bundle: \(bundle)")
+        print("   Bundle Token: \(BundleToken.bundle)")
+        
+        // Test if bundles are the same
+        print("   Same bundle: \(bundle == BundleToken.bundle)")
     }
 }
 #endif
+
+
+
