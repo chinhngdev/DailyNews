@@ -17,11 +17,18 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SWIFTGEN_CONFIG="$SCRIPT_DIR/swiftgen.yml"
 GENERATED_DIR="$SCRIPT_DIR/Sources/TCAssets/Generated"
 
+# Parse command line arguments
+FORCE_REGENERATE=false
+if [[ "$1" == "--force" || "$1" == "-f" ]]; then
+    FORCE_REGENERATE=true
+    echo -e "${YELLOW}🔄 Force regeneration mode enabled${NC}"
+fi
+
 echo -e "${BLUE}🔨 TCAssets Generation Started${NC}"
 echo "📁 Working directory: $SCRIPT_DIR"
 
 # Check if SwiftGen is installed
-if ! command -v swiftgen > /dev/null 2>&1; then
+if ! command -v swiftgen &> /dev/null; then
     echo -e "${RED}❌ SwiftGen is not installed${NC}"
     echo -e "${YELLOW}💡 Install with: brew install swiftgen${NC}"
     exit 1
@@ -37,6 +44,12 @@ fi
 if [ ! -d "$GENERATED_DIR" ]; then
     echo -e "${YELLOW}📁 Creating generated directory: $GENERATED_DIR${NC}"
     mkdir -p "$GENERATED_DIR"
+fi
+
+# Force regeneration if requested
+if [ "$FORCE_REGENERATE" = true ]; then
+    echo -e "${YELLOW}🗑️  Removing existing generated files...${NC}"
+    rm -f "$GENERATED_DIR"/*.swift
 fi
 
 # Check SwiftGen version
@@ -56,7 +69,7 @@ fi
 echo -e "${BLUE}📋 Input resources:${NC}"
 RESOURCES_DIR="$SCRIPT_DIR/Resources"
 if [ -d "$RESOURCES_DIR" ]; then
-    find "$RESOURCES_DIR" -type f \( -name "*.xcassets" -o -name "*.strings" -o -name "*.ttf" -o -name "*.otf" \) | while read -r file; do
+    find "$RESOURCES_DIR" -type f -name "*.xcassets" -o -name "*.strings" -o -name "*.ttf" -o -name "*.otf" | while read -r file; do
         echo "   📄 $(basename "$file")"
     done
 else
@@ -96,7 +109,7 @@ test_swift_compilation() {
     local sdk_flag="$3"
     
     if [ -n "$sdk_flag" ]; then
-        if xcrun -sdk "$sdk_flag" swift -frontend -parse "$file" > /dev/null 2>&1; then
+        if xcrun -sdk "$sdk_flag" swift -frontend -parse "$file" &>/dev/null; then
             echo -e "${GREEN}✅ $(basename "$file") - syntax valid ($platform)${NC}"
             return 0
         else
@@ -104,7 +117,7 @@ test_swift_compilation() {
             return 1
         fi
     else
-        if swift -frontend -parse "$file" > /dev/null 2>&1; then
+        if swift -frontend -parse "$file" &>/dev/null; then
             echo -e "${GREEN}✅ $(basename "$file") - syntax valid ($platform)${NC}"
             return 0
         else
@@ -118,7 +131,7 @@ test_swift_compilation() {
 for swift_file in "$GENERATED_DIR"/*.swift; do
     if [ -f "$swift_file" ]; then
         # Test for iOS (primary target)
-        if command -v xcrun > /dev/null 2>&1; then
+        if command -v xcrun &> /dev/null; then
             if ! test_swift_compilation "$swift_file" "iOS" "iphonesimulator"; then
                 VALIDATION_PASSED=false
             fi
@@ -138,23 +151,23 @@ fi
 
 # Optional: Test package compilation
 echo -e "${BLUE}🧪 Testing package compilation...${NC}"
-if command -v xcrun > /dev/null 2>&1; then
+if command -v xcrun &> /dev/null; then
     echo -e "${BLUE}   Testing iOS build...${NC}"
-    if xcrun -sdk iphonesimulator swift build > /dev/null 2>&1; then
+    if xcrun -sdk iphonesimulator swift build &>/dev/null; then
         echo -e "${GREEN}✅ iOS package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  iOS package build failed (may be normal if dependencies missing)${NC}"
     fi
     
     echo -e "${BLUE}   Testing macOS build...${NC}"
-    if swift build > /dev/null 2>&1; then
+    if swift build &>/dev/null; then
         echo -e "${GREEN}✅ macOS package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  macOS package build failed (may be normal if UIKit dependencies)${NC}"
     fi
 else
     echo -e "${BLUE}   Testing default build...${NC}"
-    if swift build > /dev/null 2>&1; then
+    if swift build &>/dev/null; then
         echo -e "${GREEN}✅ Package build successful${NC}"
     else
         echo -e "${YELLOW}⚠️  Package build failed (check dependencies)${NC}"
@@ -168,13 +181,16 @@ echo -e "${BLUE}📦 Package is ready to be used${NC}"
 # Platform-specific usage examples
 echo -e "${BLUE}💡 Usage examples:${NC}"
 echo "   import TCAssets"
-echo "   let image = Asset.Images.appIcon.image"
-echo "   let color = Asset.Colors.primary.color"
-echo "   let text = L10n.welcomeMessage"
+echo "   let image = Asset.heheheTestThoi.image"
+echo "   let color = Asset.accentColor.color"
+echo "   let text = L10n.appName"
 
 echo -e "${BLUE}🏗️  Build commands:${NC}"
 echo "   iOS:   xcrun -sdk iphonesimulator swift build"
 echo "   macOS: swift build"
 echo "   Xcode: Build through Xcode (recommended)"
+
+echo -e "${BLUE}🔄 Force regeneration:${NC}"
+echo "   ./generate.sh --force (or -f)"
 
 exit 0
