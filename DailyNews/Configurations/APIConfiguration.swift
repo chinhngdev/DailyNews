@@ -45,7 +45,7 @@ struct APIConfiguration {
     
     /// Base URL cho News API
     static var newsAPIBaseURL: String {
-        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,
+        guard let baseURL = ProcessInfo.processInfo.environment["API_BASE_URL"],
               !baseURL.isEmpty else {
             fatalError("❌ API_BASE_URL not properly configured. Please check configuration files")
         }
@@ -102,7 +102,6 @@ struct APIConfiguration {
         print("   - Base URL: \(newsAPIBaseURL)")
         print("   - Timeout: \(apiTimeout)s")
         print("   - Logging: \(isAPILoggingEnabled)")
-        print("   - Staging: \(useStagingEndpoints)")
         print("   - API Key configured: \(!newsAPIKey.isEmpty)")
         #endif
     }
