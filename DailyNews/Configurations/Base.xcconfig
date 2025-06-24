@@ -14,7 +14,7 @@ CURRENT_PROJECT_VERSION = 1
 
 // MARK: - Deployment
 IPHONEOS_DEPLOYMENT_TARGET = 15.0
-TARGETED_DEVICE_FAMILY = 1
+TARGETED_DEVICE_FAMILY = 1  // 1: iPhone only; 2: iPad only; 1,2: Universal
 SUPPORTED_PLATFORMS = iphoneos iphonesimulator
 
 // MARK: - Swift Configuration
@@ -23,7 +23,6 @@ SWIFT_EMIT_LOC_STRINGS = YES
 
 // MARK: - Code Signing
 CODE_SIGN_STYLE = Automatic
-DEVELOPMENT_TEAM = Enter_Your_Team_Id
 
 // MARK: - Asset Catalog
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon

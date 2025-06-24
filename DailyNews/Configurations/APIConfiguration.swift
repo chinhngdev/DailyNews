@@ -71,14 +71,6 @@ struct APIConfiguration {
         return loggingString.lowercased() == "yes" || loggingString == "1"
     }
     
-    /// Có sử dụng staging endpoints không (Debug only)
-    static var useStagingEndpoints: Bool {
-        guard let stagingString = Bundle.main.object(forInfoDictionaryKey: "USE_STAGING_ENDPOINTS") as? String else {
-            return false
-        }
-        return stagingString.lowercased() == "yes" || stagingString == "1"
-    }
-    
     // MARK: - Validation
     
     /// Kiểm tra tất cả API configuration có hợp lệ không

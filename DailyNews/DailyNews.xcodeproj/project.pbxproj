@@ -197,7 +197,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HL5737X75Y;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DailyNews/Info.plist;
+				INFOPLIST_FILE = "$(INFOPLIST_FILE)";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -234,7 +234,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HL5737X75Y;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DailyNews/Info.plist;
+				INFOPLIST_FILE = "$(INFOPLIST_FILE)";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(INFOPLIST_KEY_CFBundleDisplayName)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

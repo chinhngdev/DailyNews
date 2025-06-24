@@ -27,7 +27,5 @@
 	<string>$(API_TIMEOUT)</string>
 	<key>ENABLE_LOGGING</key>
 	<string>$(ENABLE_LOGGING)</string>
-	<key>USE_STAGING_ENDPOINTS</key>
-	<string>$(USE_STAGING_ENDPOINTS)</string>
 </dict>
 </plist>
