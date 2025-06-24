@@ -7,12 +7,26 @@
 
 import Foundation
 
-struct Article {
-    let id: String
+import Foundation
+
+struct ArticleResponse: Decodable {
+    let status: String
+    let totalResults: Int
+    let articles: [Article]
+}
+
+struct Article: Decodable {
+    let source: Source
+    let author: String?
     let title: String
     let description: String?
     let url: String
-    let imageUrl: String?
-    let publishedAt: Date
-    let source: String
+    let urlToImage: String?
+    let publishedAt: String
+    let content: String?
+}
+
+struct Source: Decodable {
+    let id: String?
+    let name: String
 }
