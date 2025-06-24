@@ -15,15 +15,15 @@ struct APIConfiguration {
     
     /// News API key từ multiple sources với priority
     static var newsAPIKey: String {
-        // Priority 1: Environment variable
+        // Priority 1: Environment variable (development)
         if let envKey = ProcessInfo.processInfo.environment["NEWS_API_KEY"],
-           !envKey.isEmpty && !envKey.contains("PLACEHOLDER") {
+           !envKey.isEmpty && !envKey.contains("$(") {
             return envKey
         }
         
-        // Priority 2: Bundle configuration
+        // Priority 2: Bundle configuration (production)
         if let bundleKey = Bundle.main.object(forInfoDictionaryKey: "NEWS_API_KEY") as? String,
-           !bundleKey.isEmpty && !bundleKey.contains("PLACEHOLDER") {
+           !bundleKey.isEmpty && !bundleKey.contains("$(") {
             return bundleKey
         }
         
@@ -84,8 +84,15 @@ struct APIConfiguration {
     /// Kiểm tra tất cả API configuration có hợp lệ không
     static func validateConfiguration() -> Bool {
         do {
-            _ = newsAPIKey
-            _ = newsAPIBaseURL
+            let apiKey = newsAPIKey
+            let baseURL = newsAPIBaseURL
+            
+            // Basic validation
+            guard apiKey.count > 10 else {
+                print("❌ API key quá ngắn")
+                return false
+            }
+            
             print("✅ API Configuration validated successfully")
             return true
         } catch {
