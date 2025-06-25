@@ -15,13 +15,13 @@ struct APIConfiguration {
     
     /// News API key từ multiple sources với priority
     static var newsAPIKey: String {
-        // Priority 1: Environment variable (development)
+        // Priority 1: Environment variable (development). Config in Xcode scheme
         if let envKey = ProcessInfo.processInfo.environment["NEWS_API_KEY"],
            !envKey.isEmpty && !envKey.contains("$(") {
             return envKey
         }
         
-        // Priority 2: Bundle configuration (production)
+        // Priority 2: Bundle configuration (production). Config in Info.plist
         if let bundleKey = Bundle.main.object(forInfoDictionaryKey: "NEWS_API_KEY") as? String,
            !bundleKey.isEmpty && !bundleKey.contains("$(") {
             return bundleKey

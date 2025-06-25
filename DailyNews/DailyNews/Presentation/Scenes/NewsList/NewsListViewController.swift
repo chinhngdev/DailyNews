@@ -58,7 +58,8 @@ final class NewsListViewController: UIViewController {
     }
 
     private func getNews() async throws -> ArticleResponse {
-        var urlComponents = URLComponents(string: "\(APIConfiguration.newsAPIBaseURL)/everything")
+        var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
+        urlComponents?.path = "/everything"
         urlComponents?.queryItems = [
             URLQueryItem(name: "q", value: "technology"),
             URLQueryItem(name: "sortBy", value: "relevancy"),
