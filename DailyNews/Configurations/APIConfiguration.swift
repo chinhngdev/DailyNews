@@ -75,22 +75,22 @@ struct APIConfiguration {
     
     /// Kiểm tra tất cả API configuration có hợp lệ không
     static func validateConfiguration() -> Bool {
-        do {
-            let apiKey = newsAPIKey
-            let baseURL = newsAPIBaseURL
-            
-            // Basic validation
-            guard apiKey.count > 10 else {
-                print("❌ API key quá ngắn")
-                return false
-            }
-            
-            print("✅ API Configuration validated successfully")
-            return true
-        } catch {
-            print("❌ API Configuration validation failed: \(error)")
+        let apiKey = newsAPIKey
+        let baseURL = newsAPIBaseURL
+        
+        // Basic validation
+        guard apiKey.count > 10 else {
+            print("❌ API key is too short")
             return false
         }
+
+        guard let _ = URL(string: baseURL) else {
+            print("❌ Base URL is invalid")
+            return false
+        }
+        
+        print("✅ API Configuration validated successfully")
+        return true
     }
     
     // MARK: - Debug Helper

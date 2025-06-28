@@ -39,6 +39,11 @@
 			path = DailyNews;
 			sourceTree = "<group>";
 		};
+		347C7ED02E0FFDE800301E49 /* Networking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Networking;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +62,9 @@
 		3456AE122DF038C50005F595 = {
 			isa = PBXGroup;
 			children = (
-				340F3A522E00662A00D907CC /* Configurations */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
+				340F3A522E00662A00D907CC /* Configurations */,
+				347C7ED02E0FFDE800301E49 /* Networking */,
 				3456AE1C2DF038C50005F595 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,7 @@
 			fileSystemSynchronizedGroups = (
 				340F3A522E00662A00D907CC /* Configurations */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
+				347C7ED02E0FFDE800301E49 /* Networking */,
 			);
 			name = DailyNews;
 			packageProductDependencies = (

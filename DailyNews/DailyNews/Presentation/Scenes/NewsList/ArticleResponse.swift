@@ -1,5 +1,5 @@
 //
-//  Article.swift
+//  ArticleResponse.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/16/25.
