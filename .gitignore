@@ -158,6 +158,9 @@ TCAssets/Sources/TCAssets/Generated/
 # MyProject/Resources/Private/
 # MyProject/Analytics/
 
+# P folder - Planning/Documentation files (not for commit)
+**/P/
+
 # --- Optional: Team Collaboration ---
 # Uncomment these if your team agrees to ignore them
 
