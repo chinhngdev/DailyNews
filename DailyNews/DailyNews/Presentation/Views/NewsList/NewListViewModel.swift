@@ -1,5 +1,5 @@
 //
-//  NewsListViewController.swift
+//  NewListViewModel.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.

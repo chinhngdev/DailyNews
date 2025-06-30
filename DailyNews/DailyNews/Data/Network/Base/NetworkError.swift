@@ -1,5 +1,5 @@
 //
-//  Error.swift
+//  NetworkError.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.

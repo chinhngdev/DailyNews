@@ -21,7 +21,7 @@ final class NewsDataService {
         // Khi urlCoponents?.url được gọi thì Swift sẽ tự động xây dựng URL hoàn chỉnh bao gồm cả query parameters từ queryItems
         // Ví dụ: https://newsapi.org/v2/everything?q=technology&sortBy=relevancy&pageSize=20&page=1
         guard let url = urlComponents?.url else {
-            throw NewsListError.invalidURL
+            throw NewsError.invalidURL
         }
         
         var request = URLRequest(url: url)
@@ -29,7 +29,7 @@ final class NewsDataService {
 
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NewsListError.invalidResponse
+            throw NewsError.invalidResponse
         }
 
         do {
@@ -38,7 +38,7 @@ final class NewsDataService {
             let news = try decoder.decode(ArticleResponse.self, from: data)
             return news
         } catch {
-            throw NewsListError.invalidData
+            throw NewsError.invalidData
         }
     }
 }
