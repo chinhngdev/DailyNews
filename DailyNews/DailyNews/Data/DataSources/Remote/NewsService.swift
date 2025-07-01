@@ -1,5 +1,5 @@
 //
-//  NewsDataService.swift
+//  NewsService.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NewsDataService {
+final class NewsService {
     func getNews() async throws -> ArticleResponse {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
@@ -26,19 +26,29 @@ final class NewsDataService {
         
         var request = URLRequest(url: url)
         request.setValue(APIConfiguration.newsAPIKey, forHTTPHeaderField: "Authorization")
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NewsError.invalidResponse
-        }
-
+        
+        // Set timeout for avoiding hang forever
+        request.timeoutInterval = APIConfiguration.apiTimeout
+        
         do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            // Check for HTTP status code
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NewsError.invalidResponse
+            }
+            
+            guard (200...299).contains(httpResponse.statusCode) else {
+                throw NewsError.invalidResponse
+            }
+            
+            // Decode JSON
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .useDefaultKeys
             let news = try decoder.decode(ArticleResponse.self, from: data)
             return news
-        } catch {
-            throw NewsError.invalidData
+        } catch let error as NewsError {
+            throw error
         }
     }
 }
