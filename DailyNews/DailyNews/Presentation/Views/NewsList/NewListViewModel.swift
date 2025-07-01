@@ -9,7 +9,7 @@ final class NewListViewModel {
     
     // MARK: - Properties
     private var articles: [Article] = []
-    private let newsDataService: NewsService = NewsService()
+    private var newsDataService: NewsServiceProtocol
 
     private var currentTask: Task<Void, Error>?
     
@@ -23,6 +23,11 @@ final class NewListViewModel {
         didSet {
             onErrorChanged?(errorMessage)
         }
+    }
+    
+    // MARK: - Initialization
+    init(newsDataService: NewsServiceProtocol = NewsService()) {
+        self.newsDataService = newsDataService
     }
 
     // MARK: - Callbacks for UI updates

@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class NewsService {
+protocol NewsServiceProtocol {
+    func getNews() async throws -> ArticleResponse
+}
+
+final class NewsService: NewsServiceProtocol {
     func getNews() async throws -> ArticleResponse {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
