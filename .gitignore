@@ -135,8 +135,8 @@ playground.xcworkspace
 # --- Documentation & Assets ---
 
 # Generated documentation
-docs/
-Documentation/
+# docs/
+# Documentation/
 
 # Temporary files
 *.tmp
