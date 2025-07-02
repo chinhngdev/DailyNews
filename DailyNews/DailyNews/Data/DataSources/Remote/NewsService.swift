@@ -42,7 +42,16 @@ final class NewsService: NewsServiceProtocol {
                 throw NewsError.invalidResponse
             }
             
-            guard (200...299).contains(httpResponse.statusCode) else {
+            switch httpResponse.statusCode {
+            case 200...299:
+                break
+            case 401:
+                throw NewsError.unauthorized
+            case 429:
+                throw NewsError.tooManyRequests
+            case 500:
+                throw NewsError.serverError
+            default:
                 throw NewsError.invalidResponse
             }
             
