@@ -11,8 +11,19 @@
 		348342692E03ADE500614FCE /* TCAssets in Frameworks */ = {isa = PBXBuildFile; productRef = 348342682E03ADE500614FCE /* TCAssets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		346DBEDF2E15422E00196EBD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3456AE132DF038C50005F595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3456AE1A2DF038C50005F595;
+			remoteInfo = DailyNews;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3456AE1B2DF038C50005F595 /* DailyNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		346DBEDB2E15422E00196EBD /* DailyNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -39,6 +50,11 @@
 			path = DailyNews;
 			sourceTree = "<group>";
 		};
+		346DBEDC2E15422E00196EBD /* DailyNewsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = DailyNewsTests;
+			sourceTree = "<group>";
+		};
 		347C7F322E123A1800301E49 /* DesignSystem */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = DesignSystem;
@@ -56,6 +72,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		346DBED82E15422E00196EBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -65,6 +88,7 @@
 				3456AE1D2DF038C50005F595 /* DailyNews */,
 				347C7F322E123A1800301E49 /* DesignSystem */,
 				340F3A522E00662A00D907CC /* Configurations */,
+				346DBEDC2E15422E00196EBD /* DailyNewsTests */,
 				3456AE1C2DF038C50005F595 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				3456AE1B2DF038C50005F595 /* DailyNews.app */,
+				346DBEDB2E15422E00196EBD /* DailyNewsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +132,29 @@
 			productReference = 3456AE1B2DF038C50005F595 /* DailyNews.app */;
 			productType = "com.apple.product-type.application";
 		};
+		346DBEDA2E15422E00196EBD /* DailyNewsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 346DBEE12E15422E00196EBD /* Build configuration list for PBXNativeTarget "DailyNewsTests" */;
+			buildPhases = (
+				346DBED72E15422E00196EBD /* Sources */,
+				346DBED82E15422E00196EBD /* Frameworks */,
+				346DBED92E15422E00196EBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				346DBEE02E15422E00196EBD /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				346DBEDC2E15422E00196EBD /* DailyNewsTests */,
+			);
+			name = DailyNewsTests;
+			packageProductDependencies = (
+			);
+			productName = DailyNewsTests;
+			productReference = 346DBEDB2E15422E00196EBD /* DailyNewsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -119,6 +167,10 @@
 				TargetAttributes = {
 					3456AE1A2DF038C50005F595 = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					346DBEDA2E15422E00196EBD = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 3456AE1A2DF038C50005F595;
 					};
 				};
 			};
@@ -141,12 +193,20 @@
 			projectRoot = "";
 			targets = (
 				3456AE1A2DF038C50005F595 /* DailyNews */,
+				346DBEDA2E15422E00196EBD /* DailyNewsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3456AE192DF038C50005F595 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		346DBED92E15422E00196EBD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,7 +250,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		346DBED72E15422E00196EBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		346DBEE02E15422E00196EBD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3456AE1A2DF038C50005F595 /* DailyNews */;
+			targetProxy = 346DBEDF2E15422E00196EBD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3456AE2F2DF038C60005F595 /* Debug */ = {
@@ -392,6 +467,50 @@
 			};
 			name = Release;
 		};
+		346DBEE22E15422E00196EBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL5737X75Y;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyNews.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailyNews";
+			};
+			name = Debug;
+		};
+		346DBEE32E15422E00196EBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL5737X75Y;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chinhng.DailyNewsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DailyNews.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DailyNews";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -409,6 +528,15 @@
 			buildConfigurations = (
 				3456AE2F2DF038C60005F595 /* Debug */,
 				3456AE302DF038C60005F595 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		346DBEE12E15422E00196EBD /* Build configuration list for PBXNativeTarget "DailyNewsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				346DBEE22E15422E00196EBD /* Debug */,
+				346DBEE32E15422E00196EBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
