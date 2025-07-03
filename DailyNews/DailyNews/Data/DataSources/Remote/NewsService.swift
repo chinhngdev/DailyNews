@@ -12,6 +12,14 @@ protocol NewsServiceProtocol {
 }
 
 final class NewsService: NewsServiceProtocol {
+    
+    private let urlSession: URLSession
+    
+    // MARK: - Initializer
+    init(urlSession: URLSession = .shared) {
+        self.urlSession = urlSession
+    }
+    
     func getNews() async throws -> ArticleResponse {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
@@ -35,7 +43,7 @@ final class NewsService: NewsServiceProtocol {
         request.timeoutInterval = APIConfiguration.apiTimeout
         
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await urlSession.data(for: request)
             
             // Check for HTTP status code
             guard let httpResponse = response as? HTTPURLResponse else {

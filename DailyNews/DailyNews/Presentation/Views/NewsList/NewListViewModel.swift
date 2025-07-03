@@ -15,7 +15,8 @@ final class NewListViewModel {
     
     private var isLoading: Bool = false {
         didSet {
-            onLoadingStateChanged?(isLoading)
+            // TODO: Resolve the warning: UIActivityIndicatorView.startAnimating() must be used from main thread only
+//            onLoadingStateChanged?(isLoading)
         }
     }
     
