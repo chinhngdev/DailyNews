@@ -15,15 +15,15 @@ struct APIConfiguration {
     
     /// News API key từ multiple sources với priority
     static var newsAPIKey: String {
-        // Priority 1: Environment variable
+        // Priority 1: Environment variable (development). Config in Xcode scheme
         if let envKey = ProcessInfo.processInfo.environment["NEWS_API_KEY"],
-           !envKey.isEmpty && !envKey.contains("PLACEHOLDER") {
+           !envKey.isEmpty && !envKey.contains("$(") {
             return envKey
         }
         
-        // Priority 2: Bundle configuration
+        // Priority 2: Bundle configuration (production). Config in Info.plist
         if let bundleKey = Bundle.main.object(forInfoDictionaryKey: "NEWS_API_KEY") as? String,
-           !bundleKey.isEmpty && !bundleKey.contains("PLACEHOLDER") {
+           !bundleKey.isEmpty && !bundleKey.contains("$(") {
             return bundleKey
         }
         
@@ -45,7 +45,7 @@ struct APIConfiguration {
     
     /// Base URL cho News API
     static var newsAPIBaseURL: String {
-        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String,
+        guard let baseURL = ProcessInfo.processInfo.environment["API_BASE_URL"],
               !baseURL.isEmpty else {
             fatalError("❌ API_BASE_URL not properly configured. Please check configuration files")
         }
@@ -71,27 +71,26 @@ struct APIConfiguration {
         return loggingString.lowercased() == "yes" || loggingString == "1"
     }
     
-    /// Có sử dụng staging endpoints không (Debug only)
-    static var useStagingEndpoints: Bool {
-        guard let stagingString = Bundle.main.object(forInfoDictionaryKey: "USE_STAGING_ENDPOINTS") as? String else {
-            return false
-        }
-        return stagingString.lowercased() == "yes" || stagingString == "1"
-    }
-    
     // MARK: - Validation
     
     /// Kiểm tra tất cả API configuration có hợp lệ không
     static func validateConfiguration() -> Bool {
-        do {
-            _ = newsAPIKey
-            _ = newsAPIBaseURL
-            print("✅ API Configuration validated successfully")
-            return true
-        } catch {
-            print("❌ API Configuration validation failed: \(error)")
+        let apiKey = newsAPIKey
+        let baseURL = newsAPIBaseURL
+        
+        // Basic validation
+        guard apiKey.count > 10 else {
+            print("❌ API key is too short")
             return false
         }
+
+        guard let _ = URL(string: baseURL) else {
+            print("❌ Base URL is invalid")
+            return false
+        }
+        
+        print("✅ API Configuration validated successfully")
+        return true
     }
     
     // MARK: - Debug Helper
@@ -103,7 +102,6 @@ struct APIConfiguration {
         print("   - Base URL: \(newsAPIBaseURL)")
         print("   - Timeout: \(apiTimeout)s")
         print("   - Logging: \(isAPILoggingEnabled)")
-        print("   - Staging: \(useStagingEndpoints)")
         print("   - API Key configured: \(!newsAPIKey.isEmpty)")
         #endif
     }

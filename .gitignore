@@ -135,8 +135,8 @@ playground.xcworkspace
 # --- Documentation & Assets ---
 
 # Generated documentation
-docs/
-Documentation/
+# docs/
+# Documentation/
 
 # Temporary files
 *.tmp
@@ -157,6 +157,9 @@ TCAssets/Sources/TCAssets/Generated/
 # Example:
 # MyProject/Resources/Private/
 # MyProject/Analytics/
+
+# P folder - Planning/Documentation files (not for commit)
+**/P/
 
 # --- Optional: Team Collaboration ---
 # Uncomment these if your team agrees to ignore them
