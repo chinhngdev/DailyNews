@@ -35,7 +35,7 @@ final class NewsErrorTests: XCTestCase {
     // Test error raw values (for API mapping)
     func testErrorRawValues() {
         // These should match HTTP status codes where applicable
-        XCTAssertEqual(NewsError.badRequest.rawValue, 0)  // You might want to change this
+        XCTAssertEqual(NewsError.badRequest.rawValue, 0)
         XCTAssertEqual(NewsError.unauthorized.rawValue, 1)
         // Add assertions for other cases
     }

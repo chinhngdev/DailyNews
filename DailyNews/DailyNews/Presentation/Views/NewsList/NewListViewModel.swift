@@ -11,7 +11,7 @@ final class NewListViewModel {
     private var articles: [Article] = []
     private var newsDataService: NewsServiceProtocol
 
-    private var currentTask: Task<Void, Error>?
+    private var fetchNewsTask: Task<Void, Error>?
     
     private var isLoading: Bool = false {
         didSet {
@@ -30,6 +30,10 @@ final class NewListViewModel {
     init(newsDataService: NewsServiceProtocol = NewsService()) {
         self.newsDataService = newsDataService
     }
+    
+    deinit {
+        fetchNewsTask?.cancel()
+    }
 
     // MARK: - Callbacks for UI updates
     var onLoadingStateChanged: ((Bool) -> Void)?
@@ -38,10 +42,10 @@ final class NewListViewModel {
     
     func fetchNews() {
         // Cancel `currentTask` if it's running
-        currentTask?.cancel()
+        fetchNewsTask?.cancel()
 
         // Create a new task
-        currentTask = Task {
+        fetchNewsTask = Task {
             await performFetch()
         }
     }
