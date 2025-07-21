@@ -26,6 +26,16 @@
 		346DBEDB2E15422E00196EBD /* DailyNewsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyNewsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		347CBA092E2E323000382C61 /* Exceptions for "DailyNews" folder in "DailyNews" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3456AE1A2DF038C50005F595 /* DailyNews */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		340F3A522E00662A00D907CC /* Configurations */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -34,6 +44,9 @@
 		};
 		3456AE1D2DF038C50005F595 /* DailyNews */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				347CBA092E2E323000382C61 /* Exceptions for "DailyNews" folder in "DailyNews" target */,
+			);
 			path = DailyNews;
 			sourceTree = "<group>";
 		};

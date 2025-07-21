@@ -13,8 +13,16 @@ final class NewsListViewController: UIViewController {
     private var viewModel: NewsListViewModel!
     
     // MARK: - UI Components
-    private let tableView = UITableView()
+    private lazy var newsListView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.register(NewsItemTableViewCell.self)
+        return tableView
+    }()
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)
+
+    // MARK: - Properties
+    private var articles: [Article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +41,6 @@ final class NewsListViewController: UIViewController {
         APIConfiguration.printConfigurationInfo()
     }
     
-    @MainActor
     private func setupViewModel() {
         viewModel = NewsListViewModel()
         
@@ -47,7 +54,8 @@ final class NewsListViewController: UIViewController {
         }
         
         viewModel.onArticlesUpdated = { [weak self] articles in
-            self?.tableView.reloadData()
+            self?.articles = articles
+            self?.newsListView.reloadData()
             // TODO: Update tableView
             print("Loaded \(articles.count) articles")
         }
@@ -62,6 +70,11 @@ final class NewsListViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = "Daily News"
+
+        view.addSubview(newsListView)
+        newsListView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         // Add loading indicator
         view.addSubview(loadingIndicator)
@@ -94,5 +107,17 @@ final class NewsListViewController: UIViewController {
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
         coordinator?.showNewsDetail(article)
+    }
+}
+
+extension NewsListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return articles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(NewsItemTableViewCell.self, for: indexPath)
+        cell.configure(with: articles[indexPath.row])
+        return cell
     }
 }

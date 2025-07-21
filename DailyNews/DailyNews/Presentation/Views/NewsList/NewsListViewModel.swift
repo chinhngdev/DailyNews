@@ -57,7 +57,9 @@ final class NewsListViewModel {
         do {
             let response = try await newsDataService.getNews()
             self.articles = response.articles
-            onArticlesUpdated?(articles)
+            await MainActor.run {
+                onArticlesUpdated?(articles)
+            }
         } catch let newsError as NewsError {
             errorMessage = newsError.errorDescription
         } catch {

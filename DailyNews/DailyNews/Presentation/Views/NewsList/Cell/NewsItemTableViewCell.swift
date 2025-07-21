@@ -10,6 +10,13 @@ import SnapKit
 import TCAssets
 
 final class NewsItemTableViewCell: UITableViewCell {
+
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+
     private lazy var articleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8
@@ -19,6 +26,7 @@ final class NewsItemTableViewCell: UITableViewCell {
 
     private lazy var articleSourceLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 1
         label.font = AppFont.caption.font
         return label
     }()
@@ -26,17 +34,20 @@ final class NewsItemTableViewCell: UITableViewCell {
     private lazy var articleTitleLabel: UILabel = {
         let label = UILabel()
         label.font = AppFont.headline.font
+        label.numberOfLines = 2
         return label
     }()
 
     private lazy var publishedAtLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 1
         label.font = AppFont.caption.font
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -44,24 +55,29 @@ final class NewsItemTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        contentView.addSubview(articleImageView)
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(AppSpacing.mediumSmall.value)
+        }
+        
+        containerView.addSubview(articleImageView)
         articleImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
         }
         
-        contentView.addSubview(articleSourceLabel)
+        containerView.addSubview(articleSourceLabel)
         articleSourceLabel.snp.makeConstraints {
             $0.top.equalTo(articleImageView.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
         }
 
-        contentView.addSubview(articleTitleLabel)
+        containerView.addSubview(articleTitleLabel)
         articleTitleLabel.snp.makeConstraints {
             $0.top.equalTo(articleSourceLabel.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
         }
 
-        contentView.addSubview(publishedAtLabel)
+        containerView.addSubview(publishedAtLabel)
         publishedAtLabel.snp.makeConstraints {
             $0.top.equalTo(articleTitleLabel.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
