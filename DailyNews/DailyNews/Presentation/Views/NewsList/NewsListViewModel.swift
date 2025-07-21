@@ -1,11 +1,11 @@
 //
-//  NewListViewModel.swift
+//  NewsListViewModel.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.
 //
 
-final class NewListViewModel {
+final class NewsListViewModel {
     
     // MARK: - Properties
     private var articles: [Article] = []

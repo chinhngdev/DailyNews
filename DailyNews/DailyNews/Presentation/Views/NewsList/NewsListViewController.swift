@@ -10,7 +10,7 @@ import UIKit
 final class NewsListViewController: UIViewController {
     // MARK: - Properties
     weak var coordinator: NewsListCoordinator?
-    private var viewModel: NewListViewModel!
+    private var viewModel: NewsListViewModel!
     
     // MARK: - UI Components
     private let tableView = UITableView()
@@ -35,7 +35,7 @@ final class NewsListViewController: UIViewController {
     
     @MainActor
     private func setupViewModel() {
-        viewModel = NewListViewModel()
+        viewModel = NewsListViewModel()
         
         // Setup callbacks để update UI
         viewModel.onLoadingStateChanged = { [weak self] isLoading in
@@ -46,7 +46,8 @@ final class NewsListViewController: UIViewController {
             }
         }
         
-        viewModel.onArticlesUpdated = { articles in
+        viewModel.onArticlesUpdated = { [weak self] articles in
+            self?.tableView.reloadData()
             // TODO: Update tableView
             print("Loaded \(articles.count) articles")
         }
