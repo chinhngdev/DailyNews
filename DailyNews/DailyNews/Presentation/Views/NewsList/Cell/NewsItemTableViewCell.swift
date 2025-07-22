@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import TCAssets
 
 final class NewsItemTableViewCell: UITableViewCell {
 
@@ -21,6 +20,7 @@ final class NewsItemTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
@@ -63,6 +63,7 @@ final class NewsItemTableViewCell: UITableViewCell {
         containerView.addSubview(articleImageView)
         articleImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
+            $0.width.equalTo(articleImageView.snp.height).multipliedBy(16.0/9.0)
         }
         
         containerView.addSubview(articleSourceLabel)

@@ -178,5 +178,10 @@ TCAssets/Sources/TCAssets/Generated/
 # *.jpg filter=lfs diff=lfs merge=lfs -text
 # *.mp4 filter=lfs diff=lfs merge=lfs -text
 
+# --- SwiftGen Generated Files ---
+# Ignore the entire Generated directory as per the new strategy
+DailyNews/Generated/*
+!DailyNews/Generated/.gitkeep
+
 # --- End of Generated Content ---
 # Manual additions below

@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		340F39C82E00241900D907CC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 340F39C72E00241900D907CC /* SnapKit */; };
-		348342692E03ADE500614FCE /* TCAssets in Frameworks */ = {isa = PBXBuildFile; productRef = 348342682E03ADE500614FCE /* TCAssets */; };
+		3461CD5E2E2F46B80001D3E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3461CD5D2E2F46B80001D3E2 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +49,11 @@
 			path = DailyNews;
 			sourceTree = "<group>";
 		};
+		3461CE072E2F97F60001D3E2 /* Generated */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		346DBEDC2E15422E00196EBD /* DailyNewsTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = DailyNewsTests;
@@ -72,8 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				348342692E03ADE500614FCE /* TCAssets in Frameworks */,
-				340F39C82E00241900D907CC /* SnapKit in Frameworks */,
+				3461CD5E2E2F46B80001D3E2 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +93,7 @@
 		3456AE122DF038C50005F595 = {
 			isa = PBXGroup;
 			children = (
+				3461CE072E2F97F60001D3E2 /* Generated */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
 				347C7F322E123A1800301E49 /* DesignSystem */,
 				340F3A522E00662A00D907CC /* Configurations */,
@@ -115,7 +119,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3456AE2E2DF038C60005F595 /* Build configuration list for PBXNativeTarget "DailyNews" */;
 			buildPhases = (
-				3483426B2E03AF5E00614FCE /* Generate TCAssets */,
+				3483426B2E03AF5E00614FCE /* SwiftGen generation */,
 				3456AE172DF038C50005F595 /* Sources */,
 				3456AE182DF038C50005F595 /* Frameworks */,
 				3456AE192DF038C50005F595 /* Resources */,
@@ -127,13 +131,13 @@
 			fileSystemSynchronizedGroups = (
 				340F3A522E00662A00D907CC /* Configurations */,
 				3456AE1D2DF038C50005F595 /* DailyNews */,
+				3461CE072E2F97F60001D3E2 /* Generated */,
 				347C7F322E123A1800301E49 /* DesignSystem */,
 				347CB9702E2E2C7C00382C61 /* Helpers */,
 			);
 			name = DailyNews;
 			packageProductDependencies = (
-				340F39C72E00241900D907CC /* SnapKit */,
-				348342682E03ADE500614FCE /* TCAssets */,
+				3461CD5D2E2F46B80001D3E2 /* SnapKit */,
 			);
 			productName = DailyNews;
 			productReference = 3456AE1B2DF038C50005F595 /* DailyNews.app */;
@@ -191,8 +195,7 @@
 			mainGroup = 3456AE122DF038C50005F595;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				340F39C62E00241900D907CC /* XCRemoteSwiftPackageReference "SnapKit" */,
-				348342672E03ADE500614FCE /* XCLocalSwiftPackageReference "TCAssets" */,
+				3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3456AE1C2DF038C50005F595 /* Products */;
@@ -223,7 +226,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3483426B2E03AF5E00614FCE /* Generate TCAssets */ = {
+		3483426B2E03AF5E00614FCE /* SwiftGen generation */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -232,19 +235,19 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/TCAssets/swiftgen.yml",
-				"$(SRCROOT)/TCAssets/Resources/Assets.xcassets",
-				"$(SRCROOT)/TCAssets/Resources/Localizations",
-				"$(SRCROOT)/TCAssets/Resources/Fonts",
+				"$(SRCROOT)/swiftgen.yml",
+				"$(SRCROOT)/DailyNews/Resources/Assets.xcassets",
 			);
-			name = "Generate TCAssets";
+			name = "SwiftGen generation";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Generated/Assets.swift",
+				"$(SRCROOT)/Generated/Colors.swift\n",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\ncd \"${SRCROOT}/TCAssets\"\n./generate.sh --force\n";
+			shellScript = "#!/bin/bash\nexport PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif ! command -v swiftgen &> /dev/null; then\n    echo \"error: SwiftGen not found. Install it with: brew install swiftgen\"\n    exit 1\nfi\n\nCONFIG_FILE=\"${SRCROOT}/swiftgen.yml\"\nif [ ! -f \"$CONFIG_FILE\" ]; then\n    echo \"error: SwiftGen config file not found at $CONFIG_FILE\"\n    exit 1\nfi\n\necho \"Running SwiftGen with config: $CONFIG_FILE\"\ncd \"${SRCROOT}\"\nswiftgen config run --config \"swiftgen.yml\"\n\nif [ $? -eq 0 ]; then\n    echo \"SwiftGen completed successfully.\"\nelse\n    echo \"error: SwiftGen failed. Check the logs above for details.\"\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -307,6 +310,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -344,6 +348,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -550,15 +555,8 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		348342672E03ADE500614FCE /* XCLocalSwiftPackageReference "TCAssets" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = TCAssets;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
-		340F39C62E00241900D907CC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -569,14 +567,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		340F39C72E00241900D907CC /* SnapKit */ = {
+		3461CD5D2E2F46B80001D3E2 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 340F39C62E00241900D907CC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		348342682E03ADE500614FCE /* TCAssets */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TCAssets;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
