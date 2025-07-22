@@ -5,6 +5,8 @@
 //  Created by Chinh on 6/28/25.
 //
 
+import Dispatch
+
 final class NewsListViewModel {
     
     // MARK: - Properties
@@ -15,8 +17,9 @@ final class NewsListViewModel {
     
     private var isLoading: Bool = false {
         didSet {
-            // TODO: Resolve the warning: UIActivityIndicatorView.startAnimating() must be used from main thread only
-//            onLoadingStateChanged?(isLoading)
+            DispatchQueue.main.async {
+                self.onLoadingStateChanged?(self.isLoading)
+            }
         }
     }
     

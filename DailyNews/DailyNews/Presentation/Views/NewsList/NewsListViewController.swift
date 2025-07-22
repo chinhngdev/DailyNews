@@ -56,7 +56,6 @@ final class NewsListViewController: UIViewController {
         viewModel.onArticlesUpdated = { [weak self] articles in
             self?.articles = articles
             self?.newsListView.reloadData()
-            // TODO: Update tableView
             print("Loaded \(articles.count) articles")
         }
         
