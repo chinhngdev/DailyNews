@@ -1,0 +1,42 @@
+# SwiftGen Configuration for DailyNews App
+# Place this file in the app root directory
+
+# Set output directory relative to app root
+output_dir: DailyNews/Generated
+
+# MARK: - XCASSETS (Images, Colors, Data)
+xcassets:
+  inputs:
+    - DailyNews/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      output: Assets.swift
+      params:
+        forceProvidesNamespaces: true
+        allValues: true
+        publicAccess: true
+        enumName: Asset
+
+# MARK: - STRINGS (Localizations)
+strings:
+  inputs:
+    - DailyNews/Resources/Localizations
+  filter: ^.+\.strings$
+  outputs:
+    - templateName: structured-swift5
+      output: Strings.swift
+      params:
+        enumName: L10n
+        publicAccess: true
+
+# MARK: - COLORS (Named Colors from Assets)
+colors:
+  inputs:
+    - DailyNews/Resources/Assets.xcassets
+  filter: ^.+\.colorset$
+  outputs:
+    - templateName: swift5
+      output: Colors.swift
+      params:
+        enumName: ColorName
+        publicAccess: true
