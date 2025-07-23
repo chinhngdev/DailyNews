@@ -29,10 +29,6 @@ VALIDATE_PRODUCT = YES
 // MARK: - Release Specific Settings
 ENABLE_NS_ASSERTIONS = NO
 
-// MARK: - API Configuration (Production Environment)
-// API key comes from Xcode scheme environment variables (Shared = OFF)
-NEWS_API_KEY = $(NEWS_API_KEY)
-API_BASE_URL = $(API_BASE_URL)
 API_TIMEOUT = 15
 ENABLE_LOGGING = NO
 

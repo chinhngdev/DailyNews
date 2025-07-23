@@ -23,14 +23,19 @@ brew install swiftgen
 
 1. Get your API key from [NewsAPI.org](https://newsapi.org/register)
 
-2. In Xcode, configure the API key and base URL:
-   - **Product** → **Scheme** → **Edit Scheme**
-   - Select **Run** → **Arguments** tab
-   - Under **Environment Variables**, click **+** to add each variable:
-     - Add: `NEWS_API_KEY` = `your_api_key_here`
-     - Add: `API_BASE_URL` = `https://newsapi.org/v2`
-   - **❌ Uncheck "Shared"** for both variables (keep configuration private)
-   - Click **Close**
+2. Create and configure the API keys file:
+   
+   Create `DailyNews/DailyNews/Data/Network/Base/APIKeys.swift` with the following content:
+   ```swift
+   import Foundation
+   
+   struct APIKeys {
+       static let newsAPIKey = "your_actual_api_key_here"  // ← Replace this
+       static let newsAPIBaseURL = "https://newsapi.org/v2"
+   }
+   ```
+   
+   **Note**: `APIKeys.swift` is excluded from git commits for security.
 
 That's it! All other configurations (base URL, timeout, etc.) are already set in the xcconfig files.
 
@@ -45,7 +50,7 @@ That's it! All other configurations (base URL, timeout, etc.) are already set in
 
 - **Debug build**: 30s timeout, logging enabled, staging endpoints
 - **Release build**: 15s timeout, logging disabled, production endpoints
-- **API key**: Set via Xcode scheme environment variables (private)
+- **API key**: Configured in `APIKeys.swift` (not committed, secure)
 
 ## Next Steps
 

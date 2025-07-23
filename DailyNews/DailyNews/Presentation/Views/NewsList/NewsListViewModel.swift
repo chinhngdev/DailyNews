@@ -25,7 +25,9 @@ final class NewsListViewModel {
     
     private var errorMessage: String? {
         didSet {
-            onErrorChanged?(errorMessage)
+            DispatchQueue.main.async {
+                self.onErrorChanged?(self.errorMessage)
+            }
         }
     }
     

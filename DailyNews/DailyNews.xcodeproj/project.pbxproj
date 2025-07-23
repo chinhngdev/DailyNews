@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3461CD5E2E2F46B80001D3E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3461CD5D2E2F46B80001D3E2 /* SnapKit */; };
+		3461CF652E2FE0EB0001D3E2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3461CF642E2FE0EB0001D3E2 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3461CD5E2E2F46B80001D3E2 /* SnapKit in Frameworks */,
+				3461CF652E2FE0EB0001D3E2 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +137,7 @@
 			);
 			name = DailyNews;
 			packageProductDependencies = (
-				3461CD5D2E2F46B80001D3E2 /* SnapKit */,
+				3461CF642E2FE0EB0001D3E2 /* SnapKit */,
 			);
 			productName = DailyNews;
 			productReference = 3456AE1B2DF038C50005F595 /* DailyNews.app */;
@@ -195,7 +195,7 @@
 			mainGroup = 3456AE122DF038C50005F595;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3461CF632E2FE0EB0001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3456AE1C2DF038C50005F595 /* Products */;
@@ -556,7 +556,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		3461CF632E2FE0EB0001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -567,9 +567,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3461CD5D2E2F46B80001D3E2 /* SnapKit */ = {
+		3461CF642E2FE0EB0001D3E2 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3461CD5C2E2F46B80001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 3461CF632E2FE0EB0001D3E2 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

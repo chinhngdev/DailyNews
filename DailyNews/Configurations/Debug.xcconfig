@@ -29,8 +29,5 @@ DEBUG_INFORMATION_FORMAT = dwarf
 ENABLE_NS_ASSERTIONS = YES
 
 // MARK: - API Configuration (Debug Environment)
-// API key comes from Xcode scheme environment variables (Shared = OFF)
-NEWS_API_KEY = $(NEWS_API_KEY)
-API_BASE_URL = $(API_BASE_URL)
 API_TIMEOUT = 30
 ENABLE_LOGGING = YES

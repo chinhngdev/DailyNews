@@ -13,43 +13,23 @@ struct APIConfiguration {
     
     // MARK: - API Keys
     
-    /// News API key từ multiple sources với priority
+    /// News API key from APIKeys.swift file
     static var newsAPIKey: String {
-        // Priority 1: Environment variable (development). Config in Xcode scheme
-        if let envKey = ProcessInfo.processInfo.environment["NEWS_API_KEY"],
-           !envKey.isEmpty && !envKey.contains("$(") {
-            return envKey
+        // Check if API key is properly configured
+        if !APIKeys.newsAPIKey.isEmpty && !APIKeys.newsAPIKey.contains("YOUR_ACTUAL_API_KEY_HERE") {
+            return APIKeys.newsAPIKey
         }
         
-        // Priority 2: Bundle configuration (production). Config in Info.plist
-        if let bundleKey = Bundle.main.object(forInfoDictionaryKey: "NEWS_API_KEY") as? String,
-           !bundleKey.isEmpty && !bundleKey.contains("$(") {
-            return bundleKey
-        }
-        
-        // Configuration error with helpful message
-        let errorMessage = """
-        ❌ NEWS_API_KEY not configured properly!
-        
-        Please set it using one of these methods:
-        1. Environment variable: export NEWS_API_KEY="your_key"
-        2. Xcode scheme environment variables
-        3. Add to ~/.zshrc: export NEWS_API_KEY="your_key"
-        
-        Get your API key from: https://newsapi.org/register
-        """
-        fatalError(errorMessage)
+        // Return empty string with helpful message
+        print("⚠️ NEWS_API_KEY not configured. Please update APIKeys.swift with your real API key.")
+        return ""
     }
     
     // MARK: - API Endpoints
     
     /// Base URL cho News API
     static var newsAPIBaseURL: String {
-        guard let baseURL = ProcessInfo.processInfo.environment["API_BASE_URL"],
-              !baseURL.isEmpty else {
-            fatalError("❌ API_BASE_URL not properly configured. Please check configuration files")
-        }
-        return baseURL
+        return APIKeys.newsAPIBaseURL
     }
     
     // MARK: - Configuration Settings
