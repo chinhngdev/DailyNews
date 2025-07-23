@@ -56,7 +56,7 @@ final class NewsListViewController: UIViewController {
         viewModel.onArticlesUpdated = { [weak self] articles in
             self?.articles = articles
             self?.newsListView.reloadData()
-            print("Loaded \(articles.count) articles")
+            print("✅ Loaded \(articles.count) articles")
         }
         
         viewModel.onErrorChanged = { [weak self] errorMessage in
