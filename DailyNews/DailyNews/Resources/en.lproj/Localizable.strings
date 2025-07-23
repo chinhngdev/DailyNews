@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  DailyNews
+
+  Created by Chinh on 7/23/25.
+  
+*/
+
+// MARK: - Application
+"display_name" = "Daily News";
+
+// MARK: - Common
+"common_failed" = "Failed";
+"common_try_again" = "Try again";
+"common_close" = "Close";

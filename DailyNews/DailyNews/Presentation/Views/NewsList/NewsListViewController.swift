@@ -68,7 +68,7 @@ final class NewsListViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Daily News"
+        title = L10n.displayName
 
         view.addSubview(newsListView)
         newsListView.snp.makeConstraints {
@@ -95,11 +95,11 @@ final class NewsListViewController: UIViewController {
     }
     
     private func showError(_ message: String) {
-        let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Thử lại", style: .default) { [weak self] _ in
+        let alert = UIAlertController(title: L10n.commonClose, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: L10n.commonTryAgain, style: .default) { [weak self] _ in
             self?.viewModel.fetchNews()
         })
-        alert.addAction(UIAlertAction(title: "Đóng", style: .cancel))
+        alert.addAction(UIAlertAction(title: L10n.commonClose, style: .cancel))
         present(alert, animated: true)
     }
     

@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  DailyNews
+
+  Created by Chinh on 7/23/25.
+  
+*/
+
+// MARK: - Application
+"display_name" = "Tin tức";
+
+// MARK: - Common
+"common_failed" = "Lỗi";
+"common_try_again" = "Thử lại";
+"common_close" = "Đóng";

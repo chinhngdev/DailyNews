@@ -21,3 +21,14 @@ colors:
       params:
         enumName: ColorName
         publicAccess: true
+
+# MARK: - STRINGS (Localizations)
+strings:
+  inputs:
+    - DailyNews/Resources/en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: Generated/Strings.swift
+      params:
+        enumName: L10n
+        publicAccess: true
