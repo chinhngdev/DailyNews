@@ -30,7 +30,7 @@ ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
 
 // MARK: - Info.plist
 GENERATE_INFOPLIST_FILE = YES
-INFOPLIST_FILE = DailyNews/Info.plist
+INFOPLIST_FILE = DailyNews/Application/Info.plist
 INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.news
 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES
 INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen
