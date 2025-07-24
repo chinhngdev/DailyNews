@@ -7,11 +7,16 @@
 
 import UIKit
 
-class ArticleDetailViewController: UIViewController {
+final class ArticleDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+}
 
-        view.backgroundColor = .red
+extension ArticleDetailViewController {
+    public class func instantiate() -> ArticleDetailViewController {
+        let viewController = ArticleDetailViewController()
+        return viewController
     }
 }
