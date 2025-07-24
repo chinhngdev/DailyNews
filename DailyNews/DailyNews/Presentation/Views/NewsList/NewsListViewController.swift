@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol NewsListViewControllerDelegate: AnyObject {
+    func didSelectArticle(_ article: Article)
+    func didTapSearchButton()
+}
+
 final class NewsListViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: NewsListViewModel!
-    
+    weak var delegate: NewsListViewControllerDelegate?
+
     // MARK: - UI Components
     private lazy var newsListView: UITableView = {
         let tableView = UITableView()
@@ -90,6 +96,7 @@ final class NewsListViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func searchButtonTapped() {
+        delegate?.didTapSearchButton()
     }
     
     private func showError(_ message: String) {
@@ -103,6 +110,7 @@ final class NewsListViewController: UIViewController {
     
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
+        delegate?.didSelectArticle(article)
     }
 }
 
@@ -120,8 +128,9 @@ extension NewsListViewController: UITableViewDataSource {
 
 // MARK: - Constructors
 extension NewsListViewController {
-    public class func instantiate() -> NewsListViewController {
+    public class func instantiate(delegate: NewsListViewControllerDelegate) -> NewsListViewController {
         let viewController = NewsListViewController()
+        viewController.delegate = delegate
         return viewController
     }
 }

@@ -16,7 +16,7 @@ final class NewsListCoordinator: Coordinator {
     }
     
     func present(animated: Bool, onDismissed: (() -> Void)?) {
-        let viewController = NewsListViewController.instantiate()
+        let viewController = NewsListViewController.instantiate(delegate: self)
         router.present(
             viewController,
             animated: animated,
@@ -24,7 +24,21 @@ final class NewsListCoordinator: Coordinator {
         )
     }
     
-    func showNewsDetail(_ article: Article) {}
+    func showNewsDetail(_ article: Article) {
+        print("Did tap on article: \(article.title)")
+    }
     
-    func showSearch() {}
+    func showSearch() {
+        print("Did tap on search button")
+    }
+}
+
+extension NewsListCoordinator: NewsListViewControllerDelegate {
+    func didSelectArticle(_ article: Article) {
+        showNewsDetail(article)
+    }
+
+    func didTapSearchButton() {
+        showSearch()
+    }
 }
