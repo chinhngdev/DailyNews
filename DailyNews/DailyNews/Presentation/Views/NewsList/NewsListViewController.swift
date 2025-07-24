@@ -21,6 +21,7 @@ final class NewsListViewController: UIViewController {
     private lazy var newsListView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(NewsItemTableViewCell.self)
         return tableView
     }()
@@ -123,6 +124,13 @@ extension NewsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(NewsItemTableViewCell.self, for: indexPath)
         cell.configure(with: articles[indexPath.row])
         return cell
+    }
+}
+
+extension NewsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articles[indexPath.row]
+        didSelectArticle(article)
     }
 }
 

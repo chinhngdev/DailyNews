@@ -24,7 +24,7 @@ final class NewsListCoordinator: Coordinator {
         )
     }
     
-    func showNewsDetail(_ article: Article) {
+    func showArticleDetail(_ article: Article) {
         print("Did tap on article: \(article.title)")
     }
     
@@ -35,7 +35,7 @@ final class NewsListCoordinator: Coordinator {
 
 extension NewsListCoordinator: NewsListViewControllerDelegate {
     func didSelectArticle(_ article: Article) {
-        showNewsDetail(article)
+        showArticleDetail(article)
     }
 
     func didTapSearchButton() {
