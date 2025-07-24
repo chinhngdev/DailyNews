@@ -16,7 +16,7 @@ final class NewsListCoordinator: Coordinator {
     }
     
     func present(animated: Bool, onDismissed: (() -> Void)?) {
-        let viewController = NewsListViewController.instantiate(delegate: self)
+        let viewController = UINavigationController(rootViewController: NewsListViewController.instantiate(delegate: self))
         router.present(
             viewController,
             animated: animated,
