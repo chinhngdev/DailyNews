@@ -9,7 +9,6 @@ import UIKit
 
 final class NewsListViewController: UIViewController {
     // MARK: - Properties
-    weak var coordinator: NewsListCoordinator?
     private var viewModel: NewsListViewModel!
     
     // MARK: - UI Components
@@ -91,7 +90,6 @@ final class NewsListViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func searchButtonTapped() {
-        coordinator?.showSearch()
     }
     
     private func showError(_ message: String) {
@@ -105,7 +103,6 @@ final class NewsListViewController: UIViewController {
     
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
-        coordinator?.showNewsDetail(article)
     }
 }
 
@@ -118,5 +115,13 @@ extension NewsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(NewsItemTableViewCell.self, for: indexPath)
         cell.configure(with: articles[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - Constructors
+extension NewsListViewController {
+    public class func instantiate() -> NewsListViewController {
+        let viewController = NewsListViewController()
+        return viewController
     }
 }

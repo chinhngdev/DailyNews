@@ -7,23 +7,21 @@
 
 import UIKit
 
-protocol NewsListCoordinatorDelegate: AnyObject {
-    func newsListCoordinatorDidFinish(_ coordinator: NewsListCoordinator)
-}
-
 final class NewsListCoordinator: Coordinator {
-    var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController
-    weak var parentCoordinator: AppCoordinator?
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    var children: [Coordinator] = []
+    let router: Router
+
+    init(router: Router) {
+        self.router = router
     }
     
-    func start() {
-        let newsListVC = NewsListViewController()
-        newsListVC.coordinator = self
-        navigationController.pushViewController(newsListVC, animated: false)
+    func present(animated: Bool, onDismissed: (() -> Void)?) {
+        let viewController = NewsListViewController.instantiate()
+        router.present(
+            viewController,
+            animated: animated,
+            onDismissed: onDismissed
+        )
     }
     
     func showNewsDetail(_ article: Article) {}
