@@ -7,26 +7,38 @@
 
 import UIKit
 
-protocol NewsListCoordinatorDelegate: AnyObject {
-    func newsListCoordinatorDidFinish(_ coordinator: NewsListCoordinator)
+final class NewsListCoordinator: Coordinator {
+    var children: [Coordinator] = []
+    let router: Router
+
+    init(router: Router) {
+        self.router = router
+    }
+    
+    func present(animated: Bool, onDismissed: (() -> Void)?) {
+        let viewController = UINavigationController(rootViewController: NewsListViewController.instantiate(delegate: self))
+        router.present(
+            viewController,
+            animated: animated,
+            onDismissed: onDismissed
+        )
+    }
+    
+    func showArticleDetail(_ article: Article) {
+        print("Did tap on article: \(article.title)")
+    }
+    
+    func showSearch() {
+        print("Did tap on search button")
+    }
 }
 
-final class NewsListCoordinator: Coordinator {
-    var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController
-    weak var parentCoordinator: AppCoordinator?
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+extension NewsListCoordinator: NewsListViewControllerDelegate {
+    func didSelectArticle(_ article: Article) {
+        showArticleDetail(article)
     }
-    
-    func start() {
-        let newsListVC = NewsListViewController()
-        newsListVC.coordinator = self
-        navigationController.pushViewController(newsListVC, animated: false)
+
+    func didTapSearchButton() {
+        showSearch()
     }
-    
-    func showNewsDetail(_ article: Article) {}
-    
-    func showSearch() {}
 }

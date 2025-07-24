@@ -7,15 +7,21 @@
 
 import UIKit
 
+protocol NewsListViewControllerDelegate: AnyObject {
+    func didSelectArticle(_ article: Article)
+    func didTapSearchButton()
+}
+
 final class NewsListViewController: UIViewController {
     // MARK: - Properties
-    weak var coordinator: NewsListCoordinator?
     private var viewModel: NewsListViewModel!
-    
+    weak var delegate: NewsListViewControllerDelegate?
+
     // MARK: - UI Components
     private lazy var newsListView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(NewsItemTableViewCell.self)
         return tableView
     }()
@@ -91,7 +97,7 @@ final class NewsListViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func searchButtonTapped() {
-        coordinator?.showSearch()
+        delegate?.didTapSearchButton()
     }
     
     private func showError(_ message: String) {
@@ -105,7 +111,7 @@ final class NewsListViewController: UIViewController {
     
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
-        coordinator?.showNewsDetail(article)
+        delegate?.didSelectArticle(article)
     }
 }
 
@@ -118,5 +124,21 @@ extension NewsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(NewsItemTableViewCell.self, for: indexPath)
         cell.configure(with: articles[indexPath.row])
         return cell
+    }
+}
+
+extension NewsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articles[indexPath.row]
+        didSelectArticle(article)
+    }
+}
+
+// MARK: - Constructors
+extension NewsListViewController {
+    public class func instantiate(delegate: NewsListViewControllerDelegate) -> NewsListViewController {
+        let viewController = NewsListViewController()
+        viewController.delegate = delegate
+        return viewController
     }
 }
