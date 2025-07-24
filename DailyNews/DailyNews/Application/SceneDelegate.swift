@@ -8,28 +8,31 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
+    // MARK: - Properties
+    
+    private lazy var router: SceneDelegateRouter = {
+        return SceneDelegateRouter(windowScene: windowScene!)
+    }()
+    
+    private lazy var coordinator: NewsListCoordinator = {
+        return NewsListCoordinator(router: router)
+    }()
+    
+    var window: UIWindow? {
+        get { return router.window }
+        set { /* ignore setter because window is managed by router */ }
+    }
+    
+    private var windowScene: UIWindowScene?
 
-    var window: UIWindow?
-    private var appCoordinator: AppCoordinator?
-
-
+    // MARK: - Scene lifecycle methods
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Đảm bảo scene là UIWindowScene
+        // Ensure scene is UIWindowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        // Tạo window mới với windowScene
-        window = UIWindow(windowScene: windowScene)
-        
-        // Tạo instance của ViewController
-        let navigationController = UINavigationController()
-        
-        // Đặt ViewController làm root view controller
-        appCoordinator = AppCoordinator(navigationController: navigationController)
-        appCoordinator?.start()
-        
-        // Hiển thị window
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        self.windowScene = windowScene
+        coordinator.present(animated: false, onDismissed: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
