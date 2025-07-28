@@ -32,7 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Ensure scene is UIWindowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.windowScene = windowScene
-        coordinator.present(animated: false, onDismissed: nil)
+        
+        // Create root navigation controller
+        let newsListVC = NewsListViewController.instantiate(delegate: coordinator)
+        let navController = UINavigationController(rootViewController: newsListVC)
+        
+        router.present(navController, animated: false, onDismissed: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
