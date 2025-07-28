@@ -11,33 +11,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Properties
     
-    private lazy var router: SceneDelegateRouter = {
-        return SceneDelegateRouter(windowScene: windowScene!)
-    }()
-    
-    private lazy var coordinator: NewsListCoordinator = {
-        return NewsListCoordinator(router: router)
-    }()
-    
-    var window: UIWindow? {
-        get { return router.window }
-        set { /* ignore setter because window is managed by router */ }
-    }
-    
-    private var windowScene: UIWindowScene?
+    private var router: SceneDelegateRouter?
+    private var coordinator: NewsListCoordinator?
 
     // MARK: - Scene lifecycle methods
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Ensure scene is UIWindowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        self.windowScene = windowScene
+        
+        router = SceneDelegateRouter(windowScene: windowScene)
+        coordinator = NewsListCoordinator(router: router!)
         
         // Create root navigation controller
-        let newsListVC = NewsListViewController.instantiate(delegate: coordinator)
+        let newsListVC = NewsListViewController.instantiate(delegate: coordinator!)
         let navController = UINavigationController(rootViewController: newsListVC)
         
-        router.present(navController, animated: false, onDismissed: nil)
+        router?.present(navController, animated: false, onDismissed: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
