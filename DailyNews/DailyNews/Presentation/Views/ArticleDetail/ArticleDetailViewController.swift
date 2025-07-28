@@ -28,13 +28,13 @@ final class ArticleDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupUI()
         loadArticle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavigationBar()
     }
 }
 
@@ -56,14 +56,6 @@ private extension ArticleDetailViewController {
     func setupNavigationBar() {
         title = viewModel.articleTitle
         navigationItem.largeTitleDisplayMode = .never
-        
-        let backButton = UIBarButtonItem(
-            image: UIImage(systemName: "chevron.left"),
-            style: .plain,
-            target: self,
-            action: #selector(backButtonTapped)
-        )
-        navigationItem.leftBarButtonItem = backButton
     }
 }
 

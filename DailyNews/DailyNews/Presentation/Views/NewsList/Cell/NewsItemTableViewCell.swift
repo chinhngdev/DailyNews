@@ -71,19 +71,21 @@ final class NewsItemTableViewCell: UITableViewCell {
             $0.top.equalTo(articleImageView.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
         }
+        articleSourceLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         containerView.addSubview(articleTitleLabel)
         articleTitleLabel.snp.makeConstraints {
             $0.top.equalTo(articleSourceLabel.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
         }
-
+    
         containerView.addSubview(publishedAtLabel)
         publishedAtLabel.snp.makeConstraints {
             $0.top.equalTo(articleTitleLabel.snp.bottom).offset(AppSpacing.small.value)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
+        publishedAtLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
 }
 
