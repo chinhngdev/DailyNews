@@ -23,22 +23,12 @@ final class NewsListCoordinator: Coordinator {
             onDismissed: onDismissed
         )
     }
-    
-    func showArticleDetail(_ article: Article) {
-        print("Did tap on article: \(article.title)")
-    }
-    
-    func showSearch() {
-        print("Did tap on search button")
-    }
 }
 
 extension NewsListCoordinator: NewsListViewControllerDelegate {
     func didSelectArticle(_ article: Article) {
-        showArticleDetail(article)
     }
 
     func didTapSearchButton() {
-        showSearch()
     }
 }

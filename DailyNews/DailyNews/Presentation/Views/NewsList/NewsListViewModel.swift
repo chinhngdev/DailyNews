@@ -61,7 +61,7 @@ final class NewsListViewModel {
         
         do {
             let response = try await newsDataService.getNews()
-            self.articles = response.articles
+            self.articles = response.toDomain().articles
             await MainActor.run {
                 onArticlesUpdated?(articles)
             }

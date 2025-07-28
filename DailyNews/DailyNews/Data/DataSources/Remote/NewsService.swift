@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NewsServiceProtocol {
-    func getNews() async throws -> ArticleResponse
+    func getNews() async throws -> ArticleResponseDTO
 }
 
 final class NewsService: NewsServiceProtocol {
@@ -20,7 +20,7 @@ final class NewsService: NewsServiceProtocol {
         self.urlSession = urlSession
     }
     
-    func getNews() async throws -> ArticleResponse {
+    func getNews() async throws -> ArticleResponseDTO {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
         urlComponents?.queryItems = [
@@ -66,7 +66,7 @@ final class NewsService: NewsServiceProtocol {
             // Decode JSON
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .useDefaultKeys
-            let news = try decoder.decode(ArticleResponse.self, from: data)
+            let news = try decoder.decode(ArticleResponseDTO.self, from: data)
             return news
         } catch let error as NewsError {
             throw error
