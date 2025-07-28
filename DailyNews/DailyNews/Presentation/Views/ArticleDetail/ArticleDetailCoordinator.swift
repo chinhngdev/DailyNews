@@ -5,23 +5,22 @@
 //  Created by Chinh on 7/24/25.
 //
 
-import Foundation
+import UIKit
 
 final class ArticleDetailCoordinator: Coordinator {
     var children: [Coordinator] = []
     
     let router: Router
+    private let article: Article
 
-    init(router: Router) {
+    init(router: Router, article: Article) {
         self.router = router
+        self.article = article
     }
     
     func present(animated: Bool, onDismissed: (() -> Void)?) {
-        let viewController = ArticleDetailViewController.instantiate()
-        router.present(
-            viewController,
-            animated: animated,
-            onDismissed: onDismissed
-        )
+        let viewModel = ArticleDetailViewModel(article: article)
+        let viewController = ArticleDetailViewController.instantiate(with: viewModel)
+        router.present(viewController, animated: animated, onDismissed: onDismissed)
     }
 }

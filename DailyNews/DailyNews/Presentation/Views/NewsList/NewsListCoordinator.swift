@@ -27,6 +27,11 @@ final class NewsListCoordinator: Coordinator {
 
 extension NewsListCoordinator: NewsListViewControllerDelegate {
     func didSelectArticle(_ article: Article) {
+        let coordinator = ArticleDetailCoordinator(router: router, article: article)
+        children.append(coordinator)
+        coordinator.present(animated: true) { [weak self] in
+            self?.children.removeLast()
+        }
     }
 
     func didTapSearchButton() {
