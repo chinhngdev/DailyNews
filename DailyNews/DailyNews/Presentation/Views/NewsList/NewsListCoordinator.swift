@@ -27,8 +27,10 @@ final class NewsListCoordinator: Coordinator {
 
 extension NewsListCoordinator: NewsListViewControllerDelegate {
     func didSelectArticle(_ viewController: NewsListViewController, _ article: Article) {
-        let router = ModalNavigationRouter(parentViewController: viewController)
-        let coordinator = ArticleDetailCoordinator(router: router, article: article)
+        guard let navigationController = viewController.navigationController else { return }
+        let navigationRouter = NavigationRouter(navigationController: navigationController)
+        
+        let coordinator = ArticleDetailCoordinator(router: navigationRouter, article: article)
         presentChild(coordinator, animated: true, onDismissed: nil)
     }
 
