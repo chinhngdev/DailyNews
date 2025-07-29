@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NewsListViewControllerDelegate: AnyObject {
-    func didSelectArticle(_ article: Article)
+    func didSelectArticle(_ viewController: NewsListViewController, _ article: Article)
     func didTapSearchButton()
 }
 
@@ -111,7 +111,7 @@ final class NewsListViewController: UIViewController {
     
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
-        delegate?.didSelectArticle(article)
+        delegate?.didSelectArticle(self, article)
     }
 }
 
@@ -136,7 +136,7 @@ extension NewsListViewController: UITableViewDelegate {
 
 // MARK: - Constructors
 extension NewsListViewController {
-    public class func instantiate(delegate: NewsListViewControllerDelegate) -> NewsListViewController {
+    public class func instantiate(delegate: NewsListViewControllerDelegate?) -> NewsListViewController {
         let viewController = NewsListViewController()
         viewController.delegate = delegate
         return viewController
