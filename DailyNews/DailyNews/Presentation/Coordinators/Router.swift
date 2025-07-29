@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - Router Protocol
-protocol Router {
+protocol Router: AnyObject {
     // Present methods
     func present(_ viewController: UIViewController, animated: Bool)
     func present(_ viewController: UIViewController, animated: Bool, onDismissed: (() -> Void)?)

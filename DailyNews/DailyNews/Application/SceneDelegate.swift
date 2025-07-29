@@ -11,8 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Properties
     
-    private var router: SceneDelegateRouter?
-    private var coordinator: NewsListCoordinator?
+    private var router: Router?
+    private var coordinator: Coordinator?
 
     // MARK: - Scene lifecycle methods
     
@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coordinator = NewsListCoordinator(router: router!)
         
         // Create root navigation controller
-        let newsListVC = NewsListViewController.instantiate(delegate: coordinator!)
+        let newsListVC = NewsListViewController.instantiate(delegate: coordinator as? NewsListViewControllerDelegate)
         let navController = UINavigationController(rootViewController: newsListVC)
         
         router?.present(navController, animated: false, onDismissed: nil)
