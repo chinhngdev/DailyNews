@@ -1,5 +1,5 @@
 //
-//  NewsRepository.swift
+//  NewsRepositoryProtocol.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.
@@ -7,19 +7,25 @@
 
 import Foundation
 
-protocol NewsRepository {
+protocol NewsRepositoryProtocol {
     func getNews() async throws -> ArticleResponseDTO
 }
 
-final class DefaultNewsRepository: NewsRepository {
+final class NewsRepository {
     
     private let urlSession: URLSession
+    
+    /// The repository to query the news from the database
+    // private let newsQueriesRepository: NewsQueriesRepository
     
     // MARK: - Initializer
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession
     }
     
+}
+
+extension NewsRepository: NewsRepositoryProtocol {
     func getNews() async throws -> ArticleResponseDTO {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"

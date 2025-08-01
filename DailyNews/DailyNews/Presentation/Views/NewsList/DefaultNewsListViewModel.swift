@@ -22,7 +22,7 @@ typealias NewsListViewModel = NewsListViewModelInput & NewsListViewModelOutput
 final class DefaultNewsListViewModel: NewsListViewModel {
 
     // MARK: - Dependencies
-    private let newsUseCase: GetNewsUseCase
+    private let newsUseCase: GetNewsUseCaseProtocol
     
     // MARK: - Properties
     private var articles: [Article] = [] {
@@ -51,7 +51,7 @@ final class DefaultNewsListViewModel: NewsListViewModel {
     }
     
     // MARK: - Initialization
-    init(newsUseCase: GetNewsUseCase) {
+    init(newsUseCase: GetNewsUseCaseProtocol) {
         self.newsUseCase = newsUseCase
     }
     

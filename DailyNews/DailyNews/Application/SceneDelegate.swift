@@ -57,8 +57,8 @@ extension SceneDelegate {
         router = SceneDelegateRouter(windowScene: windowScene)
         coordinator = NewsListCoordinator(router: router!)
 
-        let newsDataService = DefaultNewsRepository()
-        let newsUseCase = DefaultGetNewsUseCase(newsService: newsDataService)
+        let newsRepository = NewsRepository()
+        let newsUseCase = GetNewsUseCase(newsRepository: newsRepository)
         let viewModel = DefaultNewsListViewModel(newsUseCase: newsUseCase)
         
         // Create root navigation controller
