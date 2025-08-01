@@ -16,7 +16,15 @@ final class NewsListCoordinator: Coordinator {
     }
     
     func present(animated: Bool, onDismissed: (() -> Void)?) {
-        let viewController = NewsListViewController.instantiate(delegate: self)
+        let newsDataService = DefaultNewsRepository()
+        let newsUseCase = DefaultGetNewsUseCase(newsService: newsDataService)
+        let viewModel = DefaultNewsListViewModel(
+            newsUseCase: newsUseCase
+        )
+        let viewController = NewsListViewController.instantiate(
+            with: viewModel,
+            delegate: self
+        )
         router.present(
             viewController,
             animated: animated,

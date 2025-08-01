@@ -1,5 +1,5 @@
 //
-//  NewsService.swift
+//  NewsRepository.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol NewsServiceProtocol {
+protocol NewsRepository {
     func getNews() async throws -> ArticleResponseDTO
 }
 
-final class NewsService: NewsServiceProtocol {
+final class DefaultNewsRepository: NewsRepository {
     
     private let urlSession: URLSession
     

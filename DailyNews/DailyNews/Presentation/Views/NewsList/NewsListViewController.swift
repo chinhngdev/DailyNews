@@ -34,7 +34,7 @@ final class NewsListViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
-        setupViewModel()
+        bindToViewModel()
         viewModel.fetchNews()
     }
 
@@ -47,12 +47,9 @@ final class NewsListViewController: UIViewController {
         APIConfiguration.printConfigurationInfo()
     }
     
-    private func setupViewModel() {
-        viewModel = NewsListViewModel()
-        
-        // Setup callbacks để update UI
+    private func bindToViewModel() {
         viewModel.onLoadingStateChanged = { [weak self] isLoading in
-            if isLoading {
+            if let isLoading = isLoading, isLoading {
                 self?.loadingIndicator.startAnimating()
             } else {
                 self?.loadingIndicator.stopAnimating()
@@ -136,8 +133,12 @@ extension NewsListViewController: UITableViewDelegate {
 
 // MARK: - Constructors
 extension NewsListViewController {
-    public class func instantiate(delegate: NewsListViewControllerDelegate?) -> NewsListViewController {
+    public static func instantiate(
+        with viewModel: NewsListViewModel,
+        delegate: NewsListViewControllerDelegate?
+    ) -> NewsListViewController {
         let viewController = NewsListViewController()
+        viewController.viewModel = viewModel
         viewController.delegate = delegate
         return viewController
     }
