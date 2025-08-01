@@ -9,11 +9,11 @@ import UIKit
 
 final class SceneDelegateRouter {
     // MARK: - Properties
-    public let windowScene: UIWindowScene
-    public lazy var window: UIWindow = UIWindow(windowScene: windowScene)
+    private let windowScene: UIWindowScene
+    private lazy var window: UIWindow = UIWindow(windowScene: windowScene)
     
     // MARK: - Initialization
-    public init(windowScene: UIWindowScene) {
+    init(windowScene: UIWindowScene) {
         self.windowScene = windowScene
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     // MARK: - Properties
     
@@ -17,17 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Scene lifecycle methods
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Ensure scene is UIWindowScene
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        router = SceneDelegateRouter(windowScene: windowScene)
-        coordinator = NewsListCoordinator(router: router!)
-        
-        // Create root navigation controller
-        let newsListVC = NewsListViewController.instantiate(delegate: coordinator as? NewsListViewControllerDelegate)
-        let navController = UINavigationController(rootViewController: newsListVC)
-        
-        router?.present(navController, animated: false, onDismissed: nil)
+        setupRootViewController(scene: scene)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -57,7 +47,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 
+extension SceneDelegate {
+    private func setupRootViewController(scene: UIScene) {
+        // Ensure scene is UIWindowScene
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        router = SceneDelegateRouter(windowScene: windowScene)
+        coordinator = NewsListCoordinator(router: router!)
+
+        let newsDataService = DefaultNewsRepository()
+        let newsUseCase = DefaultGetNewsUseCase(newsService: newsDataService)
+        let viewModel = DefaultNewsListViewModel(newsUseCase: newsUseCase)
+        
+        // Create root navigation controller
+        let newsListVC = NewsListViewController.instantiate(
+            with: viewModel,
+            delegate: coordinator as? NewsListViewControllerDelegate
+        )
+        let navController = UINavigationController(rootViewController: newsListVC)
+        router?.present(navController, animated: false, onDismissed: nil)
+    }
+}
