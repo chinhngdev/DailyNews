@@ -41,7 +41,4 @@ extension NewsListCoordinator: NewsListViewControllerDelegate {
         let coordinator = ArticleDetailCoordinator(router: navigationRouter, article: article)
         presentChild(coordinator, animated: true, onDismissed: nil)
     }
-
-    func didTapSearchButton() {
-    }
 }

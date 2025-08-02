@@ -8,7 +8,8 @@
 import Foundation
 
 protocol NewsRepositoryProtocol {
-    func getNews() async throws -> ArticleResponseDTO
+    func getNews(with requestValue: FetchNewsRequestValue) async throws -> ArticleResponseDTO
+    
 }
 
 final class NewsRepository {
@@ -26,14 +27,14 @@ final class NewsRepository {
 }
 
 extension NewsRepository: NewsRepositoryProtocol {
-    func getNews() async throws -> ArticleResponseDTO {
+    func getNews(with requestValue: FetchNewsRequestValue) async throws -> ArticleResponseDTO {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
         urlComponents?.queryItems = [
-            URLQueryItem(name: "q", value: "technology"),
-            URLQueryItem(name: "sortBy", value: "relevancy"),
-            URLQueryItem(name: "pageSize", value: "20"),
-            URLQueryItem(name: "page", value: "1")
+            URLQueryItem(name: "q", value: requestValue.query),
+            URLQueryItem(name: "sortBy", value: requestValue.sortBy.rawValue),
+            URLQueryItem(name: "pageSize", value: String(requestValue.pageSize)),
+            URLQueryItem(name: "page", value: String(requestValue.page))
         ]
 
         // Khi urlCoponents?.url được gọi thì Swift sẽ tự động xây dựng URL hoàn chỉnh bao gồm cả query parameters từ queryItems

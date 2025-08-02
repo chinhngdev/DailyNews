@@ -11,6 +11,8 @@
 
 // MARK: - Common
 "common_failed" = "Failed";
+"common_search" = "Search";
 "common_try_again" = "Try again";
 "common_close" = "Close";
 "common_cancel" = "Cancel";
+"common_unknown_error" = "Unknown error occurred.";

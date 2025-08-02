@@ -11,6 +11,8 @@
 
 // MARK: - Common
 "common_failed" = "Lỗi";
+"common_search" = "Tìm kiếm";
 "common_try_again" = "Thử lại";
 "common_close" = "Đóng";
 "common_cancel" = "Hủy";
+"common_unknown_error" = "Lỗi không xác định.";

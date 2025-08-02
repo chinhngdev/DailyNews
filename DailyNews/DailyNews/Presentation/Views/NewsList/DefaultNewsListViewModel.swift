@@ -15,11 +15,12 @@ protocol NewsListViewModelOutput {
 
 protocol NewsListViewModelInput {
     func fetchNews()
+    func searchNews(with query: String?)
 }
 
 typealias NewsListViewModel = NewsListViewModelInput & NewsListViewModelOutput
 
-final class DefaultNewsListViewModel: NewsListViewModel {
+final class DefaultNewsListViewModel {
 
     // MARK: - Dependencies
     private let newsUseCase: GetNewsUseCaseProtocol
@@ -33,6 +34,7 @@ final class DefaultNewsListViewModel: NewsListViewModel {
     }
 
     private var fetchNewsTask: Task<Void, Error>?
+    private var searchNewsTask: Task<Void, Error>?
     
     private var isLoading: Bool = false {
         didSet {
@@ -51,12 +53,16 @@ final class DefaultNewsListViewModel: NewsListViewModel {
     }
     
     // MARK: - Initialization
+    
     init(newsUseCase: GetNewsUseCaseProtocol) {
         self.newsUseCase = newsUseCase
     }
     
     deinit {
         fetchNewsTask?.cancel()
+        fetchNewsTask = nil
+        searchNewsTask?.cancel()
+        searchNewsTask = nil
     }
 
     // MARK: - Outputs
@@ -64,10 +70,11 @@ final class DefaultNewsListViewModel: NewsListViewModel {
     var onLoadingStateChanged: ((Bool?) -> Void)?
     var onArticlesUpdated: (([Article]) -> Void)?
     var onErrorChanged: ((String?) -> Void)?
-    
-    // MARK: - Inputs
-    
-    // TODO: Move to `NewsUseCase`
+}
+
+// MARK: - Inputs
+
+extension DefaultNewsListViewModel: NewsListViewModel {
     func fetchNews() {
         // Cancel `currentTask` if it's running
         fetchNewsTask?.cancel()
@@ -81,9 +88,10 @@ final class DefaultNewsListViewModel: NewsListViewModel {
     private func performFetch() async {
         isLoading = true
         errorMessage = nil
-        
+
+        let requestValue = FetchNewsRequestValue(query: "technology")
         do {
-            let response = try await newsUseCase.execute()
+            let response = try await newsUseCase.getNews(with: requestValue)
             self.articles = response
             await MainActor.run {
                 onArticlesUpdated?(articles)
@@ -94,12 +102,37 @@ final class DefaultNewsListViewModel: NewsListViewModel {
         
         isLoading = false
     }
-
+    
     private func handleError(error: Error) {
         if let newsError = error as? NewsError {
             errorMessage = newsError.errorDescription
         } else {
-            errorMessage = "Unknown error occurred."
+            errorMessage = L10n.commonUnknownError
+        }
+    }
+
+    func searchNews(with query: String?) {
+        guard let query = query, !query.isEmpty else {
+            fetchNews()
+            return
+        }
+
+        let requestValue = FetchNewsRequestValue(query: query)
+
+        // Cancel `currentTask` if it's running
+        searchNewsTask?.cancel()
+
+        // Create a new task
+        searchNewsTask = Task {
+            do {
+                let response = try await newsUseCase.getNews(with: requestValue)
+                self.articles = response
+                await MainActor.run {
+                    onArticlesUpdated?(articles)
+                }
+            } catch {
+                handleError(error: error)
+            }
         }
     }
 }

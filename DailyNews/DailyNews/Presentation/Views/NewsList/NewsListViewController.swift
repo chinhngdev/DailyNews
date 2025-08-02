@@ -9,7 +9,6 @@ import UIKit
 
 protocol NewsListViewControllerDelegate: AnyObject {
     func didSelectArticle(_ viewController: NewsListViewController, _ article: Article)
-    func didTapSearchButton()
 }
 
 final class NewsListViewController: UIViewController {
@@ -24,6 +23,13 @@ final class NewsListViewController: UIViewController {
         tableView.delegate = self
         tableView.register(NewsItemTableViewCell.self)
         return tableView
+    }()
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = L10n.commonSearch
+        return searchController
     }()
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)
 
@@ -84,17 +90,7 @@ final class NewsListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        // Add search button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .search,
-            target: self,
-            action: #selector(searchButtonTapped)
-        )
-    }
-    
-    // MARK: - Actions
-    @objc private func searchButtonTapped() {
-        delegate?.didTapSearchButton()
+        navigationItem.searchController = searchController
     }
     
     private func showError(_ message: String) {
@@ -112,6 +108,8 @@ final class NewsListViewController: UIViewController {
     }
 }
 
+// MARK: - TableView data source & delegate
+
 extension NewsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
@@ -128,6 +126,17 @@ extension NewsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         didSelectArticle(article)
+    }
+}
+
+extension NewsListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        Task {
+            try await Task.sleep(nanoseconds: 500_000_000)
+            let searchQuery = searchController.searchBar.text
+            
+            viewModel.searchNews(with: searchQuery)
+        }
     }
 }
 
