@@ -34,7 +34,6 @@ final class DefaultNewsListViewModel {
     }
 
     private var fetchNewsTask: Task<Void, Error>?
-    private var searchNewsTask: Task<Void, Error>?
     
     private var isLoading: Bool = false {
         didSet {
@@ -61,8 +60,6 @@ final class DefaultNewsListViewModel {
     deinit {
         fetchNewsTask?.cancel()
         fetchNewsTask = nil
-        searchNewsTask?.cancel()
-        searchNewsTask = nil
     }
 
     // MARK: - Outputs
@@ -104,6 +101,11 @@ extension DefaultNewsListViewModel: NewsListViewModel {
     }
     
     private func handleError(error: Error) {
+        // Ignore cancellation errors - they're expected behavior
+        if error is CancellationError {
+            return
+        }
+        
         if let newsError = error as? NewsError {
             errorMessage = newsError.errorDescription
         } else {
@@ -120,11 +122,12 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         let requestValue = FetchNewsRequestValue(query: query)
 
         // Cancel `currentTask` if it's running
-        searchNewsTask?.cancel()
+        fetchNewsTask?.cancel()
 
         // Create a new task
-        searchNewsTask = Task {
+        fetchNewsTask = Task {
             do {
+                try await Task.sleep(nanoseconds: 500_000_000)
                 let response = try await newsUseCase.getNews(with: requestValue)
                 self.articles = response
                 await MainActor.run {

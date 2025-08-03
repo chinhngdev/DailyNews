@@ -131,12 +131,9 @@ extension NewsListViewController: UITableViewDelegate {
 
 extension NewsListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        Task {
-            try await Task.sleep(nanoseconds: 500_000_000)
-            let searchQuery = searchController.searchBar.text
-            
-            viewModel.searchNews(with: searchQuery)
-        }
+        let searchQuery = searchController.searchBar.text
+        
+        viewModel.searchNews(with: searchQuery)
     }
 }
 
