@@ -26,9 +26,9 @@ final class NewsListViewController: UIViewController {
     }()
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = L10n.commonSearch
+        searchController.searchBar.delegate = self
         return searchController
     }()
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)
@@ -129,11 +129,18 @@ extension NewsListViewController: UITableViewDelegate {
     }
 }
 
-extension NewsListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchQuery = searchController.searchBar.text
-        
+// MARK: - UISearchBarDelegate
+extension NewsListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchQuery = searchBar.text
         viewModel.searchNews(with: searchQuery)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.fetchNews() // Load original news when search is cancelled
+        searchBar.resignFirstResponder()
     }
 }
 

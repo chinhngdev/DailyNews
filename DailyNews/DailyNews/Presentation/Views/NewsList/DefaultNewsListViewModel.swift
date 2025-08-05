@@ -114,28 +114,37 @@ extension DefaultNewsListViewModel: NewsListViewModel {
     }
 
     func searchNews(with query: String?) {
-        guard let query = query, !query.isEmpty else {
+        guard let query = query, !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             fetchNews()
             return
         }
 
-        let requestValue = FetchNewsRequestValue(query: query)
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let requestValue = FetchNewsRequestValue(query: trimmedQuery)
 
         // Cancel `currentTask` if it's running
         fetchNewsTask?.cancel()
 
         // Create a new task
         fetchNewsTask = Task {
-            do {
-                try await Task.sleep(nanoseconds: 500_000_000)
-                let response = try await newsUseCase.getNews(with: requestValue)
-                self.articles = response
-                await MainActor.run {
-                    onArticlesUpdated?(articles)
-                }
-            } catch {
-                handleError(error: error)
-            }
+            await performSearch(with: requestValue)
         }
+    }
+    
+    private func performSearch(with requestValue: FetchNewsRequestValue) async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let response = try await newsUseCase.getNews(with: requestValue)
+            self.articles = response
+            await MainActor.run {
+                onArticlesUpdated?(articles)
+            }
+        } catch {
+            handleError(error: error)
+        }
+        
+        isLoading = false
     }
 }
