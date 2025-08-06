@@ -6,9 +6,6 @@
   
 */
 
-// MARK: - Application
-"display_name" = "Tin tức";
-
 // MARK: - Common
 "common_failed" = "Lỗi";
 "common_search" = "Tìm kiếm";

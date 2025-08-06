@@ -77,7 +77,7 @@ final class NewsListViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = L10n.displayName
+        title = L10n.tabbarNews
 
         view.addSubview(newsListView)
         newsListView.snp.makeConstraints {

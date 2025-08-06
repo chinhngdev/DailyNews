@@ -6,9 +6,6 @@
   
 */
 
-// MARK: - Application
-"display_name" = "Daily News";
-
 // MARK: - Common
 "common_failed" = "Failed";
 "common_search" = "Search";
