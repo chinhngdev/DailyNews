@@ -55,18 +55,7 @@ extension SceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         router = SceneDelegateRouter(windowScene: windowScene)
-        coordinator = NewsListCoordinator(router: router!)
-
-        let newsRepository = NewsRepository()
-        let newsUseCase = GetNewsUseCase(newsRepository: newsRepository)
-        let viewModel = DefaultNewsListViewModel(newsUseCase: newsUseCase)
-        
-        // Create root navigation controller
-        let newsListVC = NewsListViewController.instantiate(
-            with: viewModel,
-            delegate: coordinator as? NewsListViewControllerDelegate
-        )
-        let navController = UINavigationController(rootViewController: newsListVC)
-        router?.present(navController, animated: false, onDismissed: nil)
+        coordinator = AppCoordinator(router: router!)
+        coordinator?.present(animated: false, onDismissed: nil)
     }
 }

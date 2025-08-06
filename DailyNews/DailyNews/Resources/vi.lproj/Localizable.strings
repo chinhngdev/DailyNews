@@ -16,3 +16,8 @@
 "common_close" = "Đóng";
 "common_cancel" = "Hủy";
 "common_unknown_error" = "Lỗi không xác định.";
+
+// MARK: - Tabbar
+"tabbar_news" = "Tin tức";
+"tabbar_favourite" = "Ưa thích";
+"tabbar_settings" = "Cài đặt";

@@ -17,7 +17,7 @@ public class NavigationRouter: NSObject {
     // MARK: - Initialization
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.routerRootController = navigationController.viewControllers.first
+        self.routerRootController = navigationController.viewControllers.first  // Get the root view controller
         super.init()
         navigationController.delegate = self
     }

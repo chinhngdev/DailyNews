@@ -16,3 +16,8 @@
 "common_close" = "Close";
 "common_cancel" = "Cancel";
 "common_unknown_error" = "Unknown error occurred.";
+
+// MARK: - Tabbar
+"tabbar_news" = "News";
+"tabbar_favourite" = "Favourite";
+"tabbar_settings" = "Settings";
