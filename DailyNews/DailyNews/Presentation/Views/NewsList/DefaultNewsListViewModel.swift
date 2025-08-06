@@ -101,11 +101,6 @@ extension DefaultNewsListViewModel: NewsListViewModel {
     }
     
     private func handleError(error: Error) {
-        // Ignore cancellation errors - they're expected behavior
-        if error is CancellationError {
-            return
-        }
-        
         if let newsError = error as? NewsError {
             errorMessage = newsError.errorDescription
         } else {
