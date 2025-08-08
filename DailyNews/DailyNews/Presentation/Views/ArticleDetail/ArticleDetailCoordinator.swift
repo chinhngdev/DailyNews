@@ -21,6 +21,8 @@ final class ArticleDetailCoordinator: Coordinator {
     func present(animated: Bool, onDismissed: (() -> Void)?) {
         let viewModel = ArticleDetailViewModel(article: article)
         let viewController = ArticleDetailViewController.instantiate(with: viewModel)
+        // Hide tab bar when pushing article detail within a navigation stack
+        viewController.hidesBottomBarWhenPushed = true
         router.present(viewController, animated: animated, onDismissed: onDismissed)
     }
 }
