@@ -18,3 +18,7 @@
 "tabbar_news" = "News";
 "tabbar_favourite" = "Favourite";
 "tabbar_settings" = "Settings";
+
+// MARK: - Empty State
+"empty_news_title" = "No News Available";
+"empty_news_message" = "There are no news articles to display at the moment. Please try again later or check your network connection.";

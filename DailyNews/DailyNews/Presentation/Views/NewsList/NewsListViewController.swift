@@ -16,6 +16,9 @@ final class NewsListViewController: UIViewController {
     private var viewModel: NewsListViewModel!
     weak var delegate: NewsListViewControllerDelegate?
 
+    // addtional properties:
+    private var articles: [Article] = []
+
     // MARK: - UI Components
     private lazy var newsListView: UITableView = {
         let tableView = UITableView()
@@ -32,9 +35,12 @@ final class NewsListViewController: UIViewController {
         return searchController
     }()
     private let loadingIndicator = UIActivityIndicatorView(style: .medium)
-
-    // MARK: - Properties
-    private var articles: [Article] = []
+    private lazy var emptyView: EmptyView = {
+        let emptyView = EmptyView()
+        emptyView.configureForNewsEmpty()
+        emptyView.isHidden = true
+        return emptyView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +71,7 @@ final class NewsListViewController: UIViewController {
         viewModel.onArticlesUpdated = { [weak self] articles in
             self?.articles = articles
             self?.newsListView.reloadData()
+            self?.updateEmptyViewVisibility()
             print("✅ Loaded \(articles.count) articles")
         }
         
@@ -87,6 +94,12 @@ final class NewsListViewController: UIViewController {
         // Add loading indicator
         view.addSubview(loadingIndicator)
         loadingIndicator.center = view.center
+        
+        // Add empty view
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private func setupNavigationBar() {
@@ -105,6 +118,17 @@ final class NewsListViewController: UIViewController {
     /// Be triggered when user taps on an article
     private func didSelectArticle(_ article: Article) {
         delegate?.didSelectArticle(self, article)
+    }
+    
+    /// Update empty view visibility based on articles array
+    private func updateEmptyViewVisibility() {
+        if articles.isEmpty {
+            emptyView.show(animated: true)
+            newsListView.isHidden = true
+        } else {
+            emptyView.hide(animated: true)
+            newsListView.isHidden = false
+        }
     }
 }
 
@@ -154,5 +178,16 @@ extension NewsListViewController {
         viewController.viewModel = viewModel
         viewController.delegate = delegate
         return viewController
+    }
+}
+
+extension EmptyView {
+    func configureForNewsEmpty() {
+        let icon = UIImage(systemName: "newspaper")
+        configure(
+            icon: icon,
+            title: L10n.emptyNewsTitle,
+            message: L10n.emptyNewsMessage
+        )
     }
 }

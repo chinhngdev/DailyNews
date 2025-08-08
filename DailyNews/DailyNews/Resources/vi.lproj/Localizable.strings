@@ -18,3 +18,7 @@
 "tabbar_news" = "Tin tức";
 "tabbar_favourite" = "Ưa thích";
 "tabbar_settings" = "Cài đặt";
+
+// MARK: - Empty State
+"empty_news_title" = "Không có tin tức";
+"empty_news_message" = "Hiện tại không có bài báo nào để hiển thị. Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.";
