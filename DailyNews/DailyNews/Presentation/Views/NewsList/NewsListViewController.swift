@@ -148,6 +148,7 @@ extension NewsListViewController: UITableViewDataSource {
 
 extension NewsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let article = articles[indexPath.row]
         didSelectArticle(article)
     }
@@ -181,6 +182,7 @@ extension NewsListViewController {
     }
 }
 
+// MARK: - EmptyView configuration
 extension EmptyView {
     func configureForNewsEmpty() {
         let icon = UIImage(systemName: "newspaper")
