@@ -15,11 +15,15 @@ enum CoreDataStorageError: Error {
 
 final class CoreDataStorage {
 
+    private enum Constants {
+        static let containerName = "CoreDataStorage"
+    }
+
     static let shared = CoreDataStorage()
     
     // MARK: - Core Data stack
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "CoreDataStorage")
+        let container = NSPersistentContainer(name: Constants.containerName)
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 // TODO: - Log to Crashlytics
@@ -29,12 +33,15 @@ final class CoreDataStorage {
         return container
     }()
 
+    private var viewContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+
     // MARK: - Core Data Saving support
     func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
+        if viewContext.hasChanges {
             do {
-                try context.save()
+                try viewContext.save()
             } catch {
                 // TODO: - Log to Crashlytics
                 assertionFailure("CoreDataStorage Unresolved error \(error), \((error as NSError).userInfo)")
