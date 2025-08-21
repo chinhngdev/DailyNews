@@ -54,7 +54,7 @@ final class AppCoordinator: Coordinator {
     
     private func createFavouriteTab() -> UINavigationController {
         let navController = UINavigationController()
-        let favouriteVC = FavouriteViewController()
+        let favouriteVC = FavouriteSourcesViewController()
         navController.setViewControllers([favouriteVC], animated: false)
         
         navController.tabBarItem = UITabBarItem(

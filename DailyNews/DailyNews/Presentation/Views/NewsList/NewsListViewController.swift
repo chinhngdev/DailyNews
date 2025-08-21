@@ -84,7 +84,6 @@ final class NewsListViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = L10n.tabbarNews
 
         view.addSubview(newsListView)
         newsListView.snp.makeConstraints {
@@ -103,6 +102,7 @@ final class NewsListViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
+        title = L10n.tabbarNews
         navigationItem.searchController = searchController
     }
     
