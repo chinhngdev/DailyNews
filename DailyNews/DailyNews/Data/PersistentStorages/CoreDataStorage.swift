@@ -7,10 +7,17 @@
 
 import CoreData
 
+protocol CoreDataStorageProtocol {
+    func newObject<T: NSManagedObject>(ofType type: T.Type) -> T
+    func fetchObject<T: NSManagedObject>(request: NSFetchRequest<T>) throws -> [T]
+    func deleteAllObjects<T: NSManagedObject>(ofType type: T.Type) throws
+}
+
 enum CoreDataStorageError: Error {
-    case readError(Error)
-    case saveError(Error)
-    case deleteError(Error)
+    case failedToLoadStore(Error)
+    case failedToSave(Error)
+    case failedToFetch(Error)
+    case failedToDelete(Error)
 }
 
 final class CoreDataStorage {
@@ -51,5 +58,43 @@ final class CoreDataStorage {
 
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
         persistentContainer.performBackgroundTask(block)
+    }
+
+    func backgroundContext() -> NSManagedObjectContext {
+        return persistentContainer.newBackgroundContext()
+    }
+}
+
+extension CoreDataStorage: CoreDataStorageProtocol {
+    func newObject<T>(ofType type: T.Type) -> T where T : NSManagedObject {
+        let managedObject: T = T(context: viewContext)
+        return managedObject
+    }
+    
+    func fetchObject<T>(request: NSFetchRequest<T>) throws -> [T] where T : NSManagedObject {
+        do {
+            let results = try viewContext.fetch(request)
+            print("Fetched \(String(describing: T.self)) successfully.")
+            return results
+        }  catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+            throw CoreDataStorageError.failedToFetch(error)
+        }
+    }
+    
+    func deleteAllObjects<T>(ofType type: T.Type) throws where T : NSManagedObject {
+        let entityName: String = String(describing: type)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            // Execute the delete request
+            try viewContext.execute(deleteRequest)
+            saveContext()
+            print("All objects from entity \(entityName) deleted successfully.")
+        } catch let error as NSError {
+            print("Failed to delete objects from entity \(entityName): \(error.localizedDescription)")
+            throw CoreDataStorageError.failedToDelete(error)
+        }
     }
 }
