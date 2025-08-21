@@ -11,6 +11,7 @@ protocol CoreDataStorageProtocol {
     func newObject<T: NSManagedObject>(ofType type: T.Type) -> T
     func fetchObject<T: NSManagedObject>(request: NSFetchRequest<T>) throws -> [T]
     func deleteAllObjects<T: NSManagedObject>(ofType type: T.Type) throws
+    func saveContext() throws
 }
 
 enum CoreDataStorageError: Error {
@@ -42,18 +43,6 @@ final class CoreDataStorage {
 
     private var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
-    }
-
-    // MARK: - Core Data Saving support
-    func saveContext() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                // TODO: - Log to Crashlytics
-                assertionFailure("CoreDataStorage Unresolved error \(error), \((error as NSError).userInfo)")
-            }
-        }
     }
 
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
@@ -90,11 +79,23 @@ extension CoreDataStorage: CoreDataStorageProtocol {
         do {
             // Execute the delete request
             try viewContext.execute(deleteRequest)
-            saveContext()
+            try saveContext()
             print("All objects from entity \(entityName) deleted successfully.")
         } catch let error as NSError {
             print("Failed to delete objects from entity \(entityName): \(error.localizedDescription)")
             throw CoreDataStorageError.failedToDelete(error)
+        }
+    }
+
+    func saveContext() throws {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                // TODO: - Log to Crashlytics
+                assertionFailure("CoreDataStorage Unresolved error \(error), \((error as NSError).userInfo)")
+                throw CoreDataStorageError.failedToSave(error)
+            }
         }
     }
 }
