@@ -22,6 +22,6 @@ final class GetNewsSourcesUseCase {
 extension GetNewsSourcesUseCase: GetNewsSourcesUseCaseProtocol {
     func getNewsSources(with request: NewsSourceRequest) async throws -> [NewsSource] {
         let newsSourcesResponseDTO = try await newsSourceRepository.getNewsSources(with: request)
-        return newsSourcesResponseDTO.sources.map { $0.toDomain() }
+        return newsSourcesResponseDTO.sources?.compactMap { $0.toDomain() } ?? []
     }
 }
