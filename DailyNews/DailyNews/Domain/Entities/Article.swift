@@ -8,7 +8,7 @@
 import Foundation
 
 struct Article {
-    let source: ArticleSource
+    let source: NewsSource
     let author: String?
     let title: String
     let description: String?

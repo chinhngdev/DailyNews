@@ -9,5 +9,4 @@ import Foundation
 
 protocol NewsRepositoryProtocol {
     func getNews(with requestValue: FetchNewsRequest) async throws -> ArticleResponseDTO
-    
 }

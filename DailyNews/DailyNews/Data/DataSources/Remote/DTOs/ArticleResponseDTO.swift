@@ -51,8 +51,8 @@ struct SourceDTO: Decodable {
     let id: String?
     let name: String
 
-    func toDomain() -> ArticleSource {
-        return ArticleSource(
+    func toDomain() -> NewsSource {
+        return NewsSource(
             id: id,
             name: name
         )

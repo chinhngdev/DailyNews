@@ -11,7 +11,7 @@ protocol GetNewsUseCaseProtocol {
     func getNews(with requestValue: FetchNewsRequest) async throws -> [Article]
 }
 
-final class GetNewsUseCase: GetNewsUseCaseProtocol {
+final class GetNewsUseCase {
     
     private let newsRepository: NewsRepositoryProtocol
 
@@ -21,7 +21,9 @@ final class GetNewsUseCase: GetNewsUseCaseProtocol {
     init(newsRepository: NewsRepositoryProtocol) {
         self.newsRepository = newsRepository
     }
+}
 
+extension GetNewsUseCase: GetNewsUseCaseProtocol {
     func getNews(with requestValue: FetchNewsRequest) async throws -> [Article] {
         
         // TODO: Check for internet connection before making the request

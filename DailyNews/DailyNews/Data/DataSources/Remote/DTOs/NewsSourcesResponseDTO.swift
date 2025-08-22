@@ -1,5 +1,5 @@
 //
-//  NewsSourcesDTO.swift
+//  NewsSourcesResponseDTO.swift
 //  DailyNews
 //
 //  Created by Chinh on 8/22/25.
@@ -20,4 +20,11 @@ struct NewsSourceDTO: Decodable {
     let category: String
     let language: String
     let country: String
+
+    func toDomain() -> NewsSource {
+        return NewsSource(
+            id: id,
+            name: name
+        )
+    }
 }
