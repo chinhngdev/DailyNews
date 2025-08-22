@@ -1,5 +1,5 @@
 //
-//  ArticleResponseDTO+Mapping.swift
+//  ArticleResponseDTO.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/16/25.
@@ -24,7 +24,7 @@ struct ArticleResponseDTO: Decodable {
 }
 
 struct ArticleDTO: Decodable {
-    let source: SourceDTO
+    let source: NewsSourceDTO
     let author: String?
     let title: String
     let description: String?
@@ -43,18 +43,6 @@ struct ArticleDTO: Decodable {
             urlToImage: urlToImage,
             publishedAt: publishedAt,
             content: content
-        )
-    }
-}
-
-struct SourceDTO: Decodable {
-    let id: String?
-    let name: String
-
-    func toDomain() -> NewsSource {
-        return NewsSource(
-            id: id,
-            name: name
         )
     }
 }
