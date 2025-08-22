@@ -22,3 +22,84 @@
 // MARK: - Empty State
 "empty_news_title" = "Không có tin tức";
 "empty_news_message" = "Hiện tại không có bài báo nào để hiển thị. Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.";
+
+// MARK: - News Categories
+"news_category_business" = "Kinh doanh";
+"news_category_entertainment" = "Giải trí";
+"news_category_general" = "Tổng hợp";
+"news_category_health" = "Sức khỏe";
+"news_category_science" = "Khoa học";
+"news_category_sports" = "Thể thao";
+"news_category_technology" = "Công nghệ";
+
+// MARK: - News Countries
+"country_united_arab_emirates" = "Các Tiểu vương quốc Ả Rập Thống nhất";
+"country_argentina" = "Argentina";
+"country_austria" = "Áo";
+"country_australia" = "Úc";
+"country_belgium" = "Bỉ";
+"country_bulgaria" = "Bulgaria";
+"country_brazil" = "Brazil";
+"country_canada" = "Canada";
+"country_switzerland" = "Thụy Sĩ";
+"country_china" = "Trung Quốc";
+"country_colombia" = "Colombia";
+"country_cuba" = "Cuba";
+"country_czech_republic" = "Cộng hòa Séc";
+"country_germany" = "Đức";
+"country_egypt" = "Ai Cập";
+"country_france" = "Pháp";
+"country_united_kingdom" = "Vương quốc Anh";
+"country_greece" = "Hy Lạp";
+"country_hong_kong" = "Hồng Kông";
+"country_hungary" = "Hungary";
+"country_indonesia" = "Indonesia";
+"country_ireland" = "Ireland";
+"country_israel" = "Israel";
+"country_india" = "Ấn Độ";
+"country_italy" = "Ý";
+"country_japan" = "Nhật Bản";
+"country_south_korea" = "Hàn Quốc";
+"country_lithuania" = "Lithuania";
+"country_latvia" = "Latvia";
+"country_morocco" = "Morocco";
+"country_mexico" = "Mexico";
+"country_malaysia" = "Malaysia";
+"country_nigeria" = "Nigeria";
+"country_netherlands" = "Hà Lan";
+"country_norway" = "Na Uy";
+"country_new_zealand" = "New Zealand";
+"country_philippines" = "Philippines";
+"country_poland" = "Ba Lan";
+"country_portugal" = "Bồ Đào Nha";
+"country_romania" = "Romania";
+"country_serbia" = "Serbia";
+"country_russia" = "Nga";
+"country_saudi_arabia" = "Ả Rập Saudi";
+"country_sweden" = "Thụy Điển";
+"country_singapore" = "Singapore";
+"country_slovenia" = "Slovenia";
+"country_slovakia" = "Slovakia";
+"country_thailand" = "Thái Lan";
+"country_turkey" = "Thổ Nhĩ Kỳ";
+"country_taiwan" = "Đài Loan";
+"country_ukraine" = "Ukraine";
+"country_united_states" = "Hoa Kỳ";
+"country_venezuela" = "Venezuela";
+"country_south_africa" = "Nam Phi";
+
+// MARK: - News Languages
+"language_arabic" = "Tiếng Ả Rập";
+"language_german" = "Tiếng Đức";
+"language_english" = "Tiếng Anh";
+"language_spanish" = "Tiếng Tây Ban Nha";
+"language_french" = "Tiếng Pháp";
+"language_hebrew" = "Tiếng Do Thái";
+"language_italian" = "Tiếng Ý";
+"language_dutch" = "Tiếng Hà Lan";
+"language_norwegian" = "Tiếng Na Uy";
+"language_portuguese" = "Tiếng Bồ Đào Nha";
+"language_russian" = "Tiếng Nga";
+"language_swedish" = "Tiếng Thụy Điển";
+"language_urdu" = "Tiếng Urdu";
+"language_chinese" = "Tiếng Trung";

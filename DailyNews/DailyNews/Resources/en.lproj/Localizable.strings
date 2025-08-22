@@ -22,3 +22,84 @@
 // MARK: - Empty State
 "empty_news_title" = "No News Available";
 "empty_news_message" = "There are no news articles to display at the moment. Please try again later or check your network connection.";
+
+// MARK: - News Categories
+"news_category_business" = "Business";
+"news_category_entertainment" = "Entertainment";
+"news_category_general" = "General";
+"news_category_health" = "Health";
+"news_category_science" = "Science";
+"news_category_sports" = "Sports";
+"news_category_technology" = "Technology";
+
+// MARK: - News Countries
+"country_united_arab_emirates" = "United Arab Emirates";
+"country_argentina" = "Argentina";
+"country_austria" = "Austria";
+"country_australia" = "Australia";
+"country_belgium" = "Belgium";
+"country_bulgaria" = "Bulgaria";
+"country_brazil" = "Brazil";
+"country_canada" = "Canada";
+"country_switzerland" = "Switzerland";
+"country_china" = "China";
+"country_colombia" = "Colombia";
+"country_cuba" = "Cuba";
+"country_czech_republic" = "Czech Republic";
+"country_germany" = "Germany";
+"country_egypt" = "Egypt";
+"country_france" = "France";
+"country_united_kingdom" = "United Kingdom";
+"country_greece" = "Greece";
+"country_hong_kong" = "Hong Kong";
+"country_hungary" = "Hungary";
+"country_indonesia" = "Indonesia";
+"country_ireland" = "Ireland";
+"country_israel" = "Israel";
+"country_india" = "India";
+"country_italy" = "Italy";
+"country_japan" = "Japan";
+"country_south_korea" = "South Korea";
+"country_lithuania" = "Lithuania";
+"country_latvia" = "Latvia";
+"country_morocco" = "Morocco";
+"country_mexico" = "Mexico";
+"country_malaysia" = "Malaysia";
+"country_nigeria" = "Nigeria";
+"country_netherlands" = "Netherlands";
+"country_norway" = "Norway";
+"country_new_zealand" = "New Zealand";
+"country_philippines" = "Philippines";
+"country_poland" = "Poland";
+"country_portugal" = "Portugal";
+"country_romania" = "Romania";
+"country_serbia" = "Serbia";
+"country_russia" = "Russia";
+"country_saudi_arabia" = "Saudi Arabia";
+"country_sweden" = "Sweden";
+"country_singapore" = "Singapore";
+"country_slovenia" = "Slovenia";
+"country_slovakia" = "Slovakia";
+"country_thailand" = "Thailand";
+"country_turkey" = "Turkey";
+"country_taiwan" = "Taiwan";
+"country_ukraine" = "Ukraine";
+"country_united_states" = "United States";
+"country_venezuela" = "Venezuela";
+"country_south_africa" = "South Africa";
+
+// MARK: - News Languages
+"language_arabic" = "Arabic";
+"language_german" = "German";
+"language_english" = "English";
+"language_spanish" = "Spanish";
+"language_french" = "French";
+"language_hebrew" = "Hebrew";
+"language_italian" = "Italian";
+"language_dutch" = "Dutch";
+"language_norwegian" = "Norwegian";
+"language_portuguese" = "Portuguese";
+"language_russian" = "Russian";
+"language_swedish" = "Swedish";
+"language_urdu" = "Urdu";
+"language_chinese" = "Chinese";
