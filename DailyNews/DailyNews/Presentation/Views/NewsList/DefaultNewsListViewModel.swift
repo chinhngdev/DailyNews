@@ -86,7 +86,7 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         isLoading = true
         errorMessage = nil
 
-        let requestValue = FetchNewsRequestValue(query: "technology")
+        let requestValue = FetchNewsRequest(query: "technology")
         do {
             let response = try await newsUseCase.getNews(with: requestValue)
             self.articles = response
@@ -115,7 +115,7 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         }
 
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        let requestValue = FetchNewsRequestValue(query: trimmedQuery)
+        let requestValue = FetchNewsRequest(query: trimmedQuery)
 
         // Cancel `currentTask` if it's running
         fetchNewsTask?.cancel()
@@ -126,7 +126,7 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         }
     }
     
-    private func performSearch(with requestValue: FetchNewsRequestValue) async {
+    private func performSearch(with requestValue: FetchNewsRequest) async {
         isLoading = true
         errorMessage = nil
         

@@ -1,5 +1,5 @@
 //
-//  FetchNewsRequestValue.swift
+//  FetchNewsRequest.swift
 //  DailyNews
 //
 //  Created by Chinh on 8/2/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FetchNewsRequestValue {
+struct FetchNewsRequest {
     let query: String
     let sortBy: NewsSortBy
     let pageSize: Int

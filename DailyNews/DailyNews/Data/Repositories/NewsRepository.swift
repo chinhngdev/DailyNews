@@ -22,7 +22,7 @@ final class NewsRepository {
 }
 
 extension NewsRepository: NewsRepositoryProtocol {
-    func getNews(with requestValue: FetchNewsRequestValue) async throws -> ArticleResponseDTO {
+    func getNews(with requestValue: FetchNewsRequest) async throws -> ArticleResponseDTO {
         var urlComponents = URLComponents(string: APIConfiguration.newsAPIBaseURL)
         urlComponents?.path = "/v2/everything"
         urlComponents?.queryItems = [
