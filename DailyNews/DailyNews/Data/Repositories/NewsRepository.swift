@@ -1,16 +1,11 @@
 //
-//  NewsRepositoryProtocol.swift
+//  NewsRepository.swift
 //  DailyNews
 //
 //  Created by Chinh on 6/28/25.
 //
 
 import Foundation
-
-protocol NewsRepositoryProtocol {
-    func getNews(with requestValue: FetchNewsRequestValue) async throws -> ArticleResponseDTO
-    
-}
 
 final class NewsRepository {
     
