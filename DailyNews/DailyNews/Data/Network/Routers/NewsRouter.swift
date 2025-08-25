@@ -8,18 +8,18 @@
 import Foundation
 
 enum NewsRouter: APIRouter {
-    case everything
+    case everything(FetchNewsRequest)
     case sources
     case topHeadlines
 
     var endpoint: String {
         switch self {
         case .everything:
-            return "/everything"
+            return "/v2/everything"
         case .sources:
-            return "/top-headlines/sources"
+            return "/v2/top-headlines/sources"
         case .topHeadlines:
-            return "/top-headlines"
+            return "/v2/top-headlines"
         }
     }
 
@@ -32,11 +32,14 @@ enum NewsRouter: APIRouter {
 
     var parameters: [String: Any]? {
         switch self {
-        case .everything:
-            return [:]
-        case .sources:
-            return [:]
-        case .topHeadlines:
+        case .everything(let request):
+            return [
+                "q": request.query,
+                "sortBy": request.sortBy.rawValue,
+                "pageSize": request.pageSize,
+                "page": request.page
+            ]
+        case .sources, .topHeadlines:
             return [:]
         }
     }
