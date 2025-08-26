@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func request<T: Decodable>(_ router: APIRouter, responseType: T.Type) async throws -> T
+    func request<T: Decodable>(_ router: APIRouter, responseType: T.Type) async throws -> NetworkResponse<T>
 }
 
 final class NetworkService: NetworkServiceProtocol {
@@ -26,33 +26,39 @@ final class NetworkService: NetworkServiceProtocol {
         self.responseDecoder = responseDecoder
     }
     
-    func request<T: Decodable>(_ router: APIRouter, responseType: T.Type) async throws -> T {
-        let request = try requestBuilder.buildRequest(from: router)
-        
-        let (data, response) = try await urlSession.data(for: request)
-        
-        try validateResponse(response)
-        
-        // Decode JSON
-        return try responseDecoder.decode(responseType, from: data)
-    }
-    
-    private func validateResponse(_ response: URLResponse) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NewsError.invalidResponse
-        }
-        
-        switch httpResponse.statusCode {
-        case 200...299:
-            break
-        case 401:
-            throw NewsError.unauthorized
-        case 429:
-            throw NewsError.tooManyRequests
-        case 500:
-            throw NewsError.serverError
-        default:
-            throw NewsError.invalidResponse
+    func request<T: Decodable>(_ router: APIRouter, responseType: T.Type) async throws -> NetworkResponse<T> {
+        do {
+            let request = try requestBuilder.buildRequest(from: router)
+            
+            let (data, response) = try await urlSession.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkError.invalidResponse
+            }
+            
+            // Only attempt to decode data if the status code indicates success
+            let decodedData: T? = {
+                if (200...299).contains(httpResponse.statusCode) {
+                    do {
+                        return try responseDecoder.decode(responseType, from: data)
+                    } catch {
+                        // Don't throw here, let the caller decide based on status code
+                        return nil
+                    }
+                }
+                return nil
+            }()
+            
+            return NetworkResponse(
+                data: decodedData,
+                statusCode: httpResponse.statusCode,
+                rawData: data
+            )
+            
+        } catch let error as NetworkError {
+            throw error
+        } catch {
+            throw NetworkError.requestFailed(error)
         }
     }
 }
