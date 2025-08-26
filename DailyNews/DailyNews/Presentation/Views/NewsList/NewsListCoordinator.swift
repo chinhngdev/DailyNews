@@ -17,7 +17,7 @@ final class NewsListCoordinator: Coordinator {
     
     func present(animated: Bool, onDismissed: (() -> Void)?) {
         let newsRepository = NewsRepository()
-        let newsUseCase = GetNewsUseCase(newsRepository: newsRepository)
+        let newsUseCase = NewsUseCase(newsRepository: newsRepository)
         let viewModel = DefaultNewsListViewModel(
             newsUseCase: newsUseCase
         )
