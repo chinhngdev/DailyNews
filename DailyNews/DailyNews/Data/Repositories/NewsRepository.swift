@@ -44,4 +44,32 @@ extension NewsRepository: NewsRepositoryProtocol {
             throw NewsError.invalidResponse
         }
     }
+
+    func getNewsSources(with request: NewsSourceRequest) async throws -> NewsSourcesResponseDTO {
+        let router = NewsRouter.newsSources(request)
+        let response = try await networkService.request(router, responseType: NewsSourcesResponseDTO.self)
+
+        // Handle different status codes and map to domain-specific errors
+        switch response.statusCode {
+        case 200...299:
+            guard let newsSourcesResponse = response.data else {
+                throw NewsError.invalidData
+            }
+            return newsSourcesResponse
+        case 400:
+            throw NewsError.badRequest
+            
+        case 401:
+            throw NewsError.unauthorized
+            
+        case 429:
+            throw NewsError.tooManyRequests
+            
+        case 500...599:
+            throw NewsError.serverError
+            
+        default:
+            throw NewsError.invalidResponse
+        }
+    }
 }

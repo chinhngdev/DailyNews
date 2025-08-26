@@ -9,14 +9,14 @@ import Foundation
 
 enum NewsRouter: APIRouter {
     case everything(FetchNewsRequest)
-    case sources
+    case newsSources(NewsSourceRequest)
     case topHeadlines
 
     var endpoint: String {
         switch self {
         case .everything:
             return "/v2/everything"
-        case .sources:
+        case .newsSources:
             return "/v2/top-headlines/sources"
         case .topHeadlines:
             return "/v2/top-headlines"
@@ -25,12 +25,12 @@ enum NewsRouter: APIRouter {
 
     var method: HTTPMethod {
         switch self {
-        case .everything, .sources, .topHeadlines:
+        case .everything, .newsSources, .topHeadlines:
             return .get
         }
     }
 
-    var task: RequestTask {
+    var task: NetworkTask {
         switch self {
         case .everything(let request):
             return .requestParameters([
@@ -39,7 +39,13 @@ enum NewsRouter: APIRouter {
                 "pageSize": request.pageSize,
                 "page": request.page
             ])
-        case .sources, .topHeadlines:
+        case .newsSources(let request):
+            return .requestParameters([
+                "country": request.country ?? "us",
+                "category": request.category ?? "general",
+                "language": request.language ?? "en"
+            ])
+        case .topHeadlines:
             return .requestPlain
         }
     }
