@@ -30,17 +30,17 @@ enum NewsRouter: APIRouter {
         }
     }
 
-    var parameters: [String: Any]? {
+    var task: RequestTask {
         switch self {
         case .everything(let request):
-            return [
+            return .requestParameters([
                 "q": request.query,
-                "sortBy": request.sortBy.rawValue,
+                "sortBy": request.sortBy(),
                 "pageSize": request.pageSize,
                 "page": request.page
-            ]
+            ])
         case .sources, .topHeadlines:
-            return [:]
+            return .requestPlain
         }
     }
 }
