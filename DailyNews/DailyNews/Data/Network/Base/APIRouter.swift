@@ -11,7 +11,7 @@ protocol APIRouter {
     var baseURL: String { get }
     var endpoint: String { get }
     var method: HTTPMethod { get }
-    var task: RequestTask { get }
+    var task: NetworkTask { get }
     var headers: [String: String]? { get }
 }
 

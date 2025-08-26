@@ -22,7 +22,7 @@ final class RequestBuilder: RequestBuilderProtocol {
         return try configureRequest(router, with: router.task, url: url)
     }
     
-    private func configureRequest(_ router: APIRouter, with task: RequestTask, url: URL) throws -> URLRequest {
+    private func configureRequest(_ router: APIRouter, with task: NetworkTask, url: URL) throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = router.method.rawValue
         request.timeoutInterval = APIConfiguration.apiTimeout

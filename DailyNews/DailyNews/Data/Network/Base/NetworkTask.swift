@@ -1,6 +1,13 @@
+//
+//  NetworkTask.swift
+//  DailyNews
+//
+//  Created by ChinhNT on 8/25/25.
+//
+
 import Foundation
 
-enum RequestTask {
+enum NetworkTask {
     /// A request with no additional data
     case requestPlain
     
