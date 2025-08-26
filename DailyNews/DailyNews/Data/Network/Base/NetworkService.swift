@@ -31,19 +31,10 @@ final class NetworkService: NetworkServiceProtocol {
         
         let (data, response) = try await urlSession.data(for: request)
         
-        // Validate response
-        do {
-            try validateResponse(response)
-        } catch {
-            throw error
-        }
+        try validateResponse(response)
         
         // Decode JSON
-        do {
-            return try responseDecoder.decode(responseType, from: data)
-        } catch {
-            throw error
-        }
+        return try responseDecoder.decode(responseType, from: data)
     }
     
     private func validateResponse(_ response: URLResponse) throws {
