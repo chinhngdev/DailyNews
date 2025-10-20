@@ -31,19 +31,17 @@ final class DefaultNewsListViewModel {
 
     private var fetchNewsTask: Task<Void, Never>?
     
+    @MainActor
     private var isLoading: Bool = false {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.onLoadingStateChanged?(self?.isLoading)
-            }
+            onLoadingStateChanged?(isLoading)
         }
     }
     
+    @MainActor
     private var errorMessage: String? {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.onErrorChanged?(self?.errorMessage)
-            }
+            onErrorChanged?(errorMessage)
         }
     }
     
@@ -59,9 +57,9 @@ final class DefaultNewsListViewModel {
 
     // MARK: - Outputs
     
-    var onLoadingStateChanged: ((Bool?) -> Void)?
-    var onArticlesUpdated: (([Article]) -> Void)?
-    var onErrorChanged: ((String?) -> Void)?
+    @MainActor var onLoadingStateChanged: ((Bool?) -> Void)?
+    @MainActor var onArticlesUpdated: (([Article]) -> Void)?
+    @MainActor var onErrorChanged: ((String?) -> Void)?
 
     private func cancelFetchNewsTask() {
         fetchNewsTask?.cancel()
@@ -82,6 +80,7 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         }
     }
     
+    @MainActor
     private func handleError(error: Error) {
         if let newsError = error as? NewsError {
             errorMessage = newsError.errorDescription
@@ -104,30 +103,35 @@ extension DefaultNewsListViewModel: NewsListViewModel {
 
         // Create a new task
         fetchNewsTask = Task {
+            await MainActor.run {
+                isLoading = true
+                errorMessage = nil
+            }
             await performSearch(with: requestValue)
         }
     }
     
     private func performSearch(with requestValue: FetchNewsRequest) async {
-        isLoading = true
-        errorMessage = nil
-
-        // Ensure loading state is reset when the task completes
-        defer { isLoading = false }
-        
         do {
             try Task.checkCancellation()
             let response = try await newsUseCase.getNews(with: requestValue)
             try Task.checkCancellation()
             await MainActor.run {
                 articles = response
+                isLoading = false
                 onArticlesUpdated?(articles)
             }
         } catch is CancellationError {
-            errorMessage = nil
+            await MainActor.run {
+                isLoading = false
+                errorMessage = nil
+            }
             return
         } catch {
-            handleError(error: error)
+            await MainActor.run  {
+                isLoading = false
+                handleError(error: error)
+            }
         }
     }
 }
