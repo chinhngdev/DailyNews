@@ -26,19 +26,15 @@ final class DefaultNewsListViewModel {
     private let newsUseCase: NewsUseCaseProtocol
     
     // MARK: - Properties
-    @MainActor
     private var articles: [Article] = []
-
     private var fetchNewsTask: Task<Void, Never>?
     
-    @MainActor
     private var isLoading: Bool = false {
         didSet {
             onLoadingStateChanged?(isLoading)
         }
     }
     
-    @MainActor
     private var errorMessage: String? {
         didSet {
             onErrorChanged?(errorMessage)
@@ -52,27 +48,23 @@ final class DefaultNewsListViewModel {
     }
     
     deinit {
-        cancelFetchNewsTask()
-    }
-
-    // MARK: - Outputs
-    
-    @MainActor var onLoadingStateChanged: ((Bool?) -> Void)?
-    @MainActor var onArticlesUpdated: (([Article]) -> Void)?
-    @MainActor var onErrorChanged: ((String?) -> Void)?
-
-    private func cancelFetchNewsTask() {
         fetchNewsTask?.cancel()
         fetchNewsTask = nil
     }
+
+    // MARK: - Outputs
+
+    var onLoadingStateChanged: ((Bool?) -> Void)?
+    var onArticlesUpdated: (([Article]) -> Void)?
+    var onErrorChanged: ((String?) -> Void)?
 }
 
 // MARK: - Inputs
 
 extension DefaultNewsListViewModel: NewsListViewModel {
     func fetchNews() {
-        // Cancel `currentTask` if it's running
-        cancelFetchNewsTask()
+        // Cancel `fetchNewsTask` if it's running
+        fetchNewsTask?.cancel()
 
         // Create a new task
         fetchNewsTask = Task {
@@ -80,7 +72,6 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         }
     }
     
-    @MainActor
     private func handleError(error: Error) {
         if let newsError = error as? NewsError {
             errorMessage = newsError.errorDescription
@@ -98,18 +89,17 @@ extension DefaultNewsListViewModel: NewsListViewModel {
 
         let requestValue = FetchNewsRequest(query: trimmedQuery)
 
-        // Cancel `currentTask` if it's running
-        cancelFetchNewsTask()
+        // Cancel `fetchNewsTask` if it's running
+        fetchNewsTask?.cancel()
 
         // Create a new task
-        fetchNewsTask = Task { @MainActor in
+        fetchNewsTask = Task {
             isLoading = true
             errorMessage = nil
             await performSearch(with: requestValue)
         }
     }
     
-    @MainActor
     private func performSearch(with requestValue: FetchNewsRequest) async {
         defer {
             isLoading = false
