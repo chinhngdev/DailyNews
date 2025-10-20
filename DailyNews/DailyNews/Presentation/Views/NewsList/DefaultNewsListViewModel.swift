@@ -26,9 +26,10 @@ final class DefaultNewsListViewModel {
     private let newsUseCase: NewsUseCaseProtocol
     
     // MARK: - Properties
+    @MainActor
     private var articles: [Article] = []
 
-    private var fetchNewsTask: Task<Void, Error>?
+    private var fetchNewsTask: Task<Void, Never>?
     
     private var isLoading: Bool = false {
         didSet {
@@ -118,11 +119,12 @@ extension DefaultNewsListViewModel: NewsListViewModel {
             try Task.checkCancellation()
             let response = try await newsUseCase.getNews(with: requestValue)
             try Task.checkCancellation()
-            self.articles = response
             await MainActor.run {
+                articles = response
                 onArticlesUpdated?(articles)
             }
         } catch is CancellationError {
+            errorMessage = nil
             return
         } catch {
             handleError(error: error)
