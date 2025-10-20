@@ -20,6 +20,7 @@ protocol NewsListViewModelInput {
 
 typealias NewsListViewModel = NewsListViewModelInput & NewsListViewModelOutput
 
+@MainActor
 final class DefaultNewsListViewModel {
 
     // MARK: - Dependencies
