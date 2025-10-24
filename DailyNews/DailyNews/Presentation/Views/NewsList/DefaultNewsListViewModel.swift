@@ -128,7 +128,7 @@ extension DefaultNewsListViewModel: NewsListViewModel {
             try Task.checkCancellation()
             let response = try await newsUseCase.getNews(with: requestValue)
             try Task.checkCancellation()
-            articles = response
+            articles = response.articles
             onArticlesUpdated?(articles)
         } catch is CancellationError {
             errorMessage = nil
