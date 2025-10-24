@@ -14,13 +14,6 @@ protocol CoreDataStorageProtocol {
     func saveContext() throws
 }
 
-enum CoreDataStorageError: Error {
-    case failedToLoadStore(Error)
-    case failedToSave(Error)
-    case failedToFetch(Error)
-    case failedToDelete(Error)
-}
-
 final class CoreDataStorage {
 
     private enum Constants {
@@ -48,8 +41,12 @@ final class CoreDataStorage {
         return persistentContainer.viewContext
     }
 
-    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
-        persistentContainer.performBackgroundTask(block)
+//    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+//        persistentContainer.performBackgroundTask(block)
+//    }
+    
+    func performBackgroundTask<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
+        return try await persistentContainer.performBackgroundTask(block)
     }
 
     func backgroundContext() -> NSManagedObjectContext {
