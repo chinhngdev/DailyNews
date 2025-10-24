@@ -8,7 +8,7 @@
 import Foundation
 
 enum NewsRouter: APIRouter {
-    case everything(FetchNewsRequest)
+    case everything(FetchNewsRequestParams)
     case newsSources(NewsSourceRequest)
     case topHeadlines
 

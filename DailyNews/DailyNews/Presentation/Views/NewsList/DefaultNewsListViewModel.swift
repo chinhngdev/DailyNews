@@ -5,17 +5,20 @@
 //  Created by Chinh on 6/28/25.
 //
 
-import Dispatch
-
+@MainActor
 protocol NewsListViewModelOutput {
     var onLoadingStateChanged: ((Bool?) -> Void)? { get set }
     var onArticlesUpdated: (([Article]) -> Void)? { get set }
     var onErrorChanged: ((String?) -> Void)? { get set }
+    var onResettingPage: (() -> Void)? { get set }
 }
 
+@MainActor
 protocol NewsListViewModelInput {
     func fetchNews()
+    func resetPage()
     func searchNews(with query: String?)
+    func loadMoreNews()
 }
 
 typealias NewsListViewModel = NewsListViewModelInput & NewsListViewModelOutput
@@ -28,6 +31,7 @@ final class DefaultNewsListViewModel {
     
     // MARK: - Properties
     private var articles: [Article] = []
+    private var newsRequestParams: FetchNewsRequestParams = FetchNewsRequestParams(query: "technology")
     private var fetchNewsTask: Task<Void, Never>?
     
     private var isLoading: Bool = false {
@@ -58,6 +62,7 @@ final class DefaultNewsListViewModel {
     var onLoadingStateChanged: ((Bool?) -> Void)?
     var onArticlesUpdated: (([Article]) -> Void)?
     var onErrorChanged: ((String?) -> Void)?
+    var onResettingPage: (() -> Void)?
 }
 
 // MARK: - Inputs
@@ -69,8 +74,13 @@ extension DefaultNewsListViewModel: NewsListViewModel {
 
         // Create a new task
         fetchNewsTask = Task {
-            await performSearch(with: FetchNewsRequest(query: "technology") )
+            await performSearch(with: newsRequestParams)
         }
+    }
+    
+    func resetPage() {
+        newsRequestParams.resetPage()
+        onResettingPage?()
     }
     
     private func handleError(error: Error) {
@@ -87,8 +97,9 @@ extension DefaultNewsListViewModel: NewsListViewModel {
             fetchNews()
             return
         }
-
-        let requestValue = FetchNewsRequest(query: trimmedQuery)
+        
+        resetPage()
+        let requestValue = FetchNewsRequestParams(query: trimmedQuery)
 
         // Cancel `fetchNewsTask` if it's running
         fetchNewsTask?.cancel()
@@ -101,7 +112,15 @@ extension DefaultNewsListViewModel: NewsListViewModel {
         }
     }
     
-    private func performSearch(with requestValue: FetchNewsRequest) async {
+    func loadMoreNews() {
+        newsRequestParams.page += 1
+        fetchNewsTask?.cancel()
+        fetchNewsTask = Task {
+            await performSearch(with: newsRequestParams)
+        }
+    }
+    
+    private func performSearch(with requestValue: FetchNewsRequestParams) async {
         defer {
             isLoading = false
         }

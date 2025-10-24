@@ -1,5 +1,5 @@
 //
-//  FetchNewsRequest.swift
+//  FetchNewsRequestParams.swift
 //  DailyNews
 //
 //  Created by Chinh on 8/2/25.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct FetchNewsRequest {
-    let query: String
+struct FetchNewsRequestParams {
+    var query: String
     let sortBy: NewsSortBy
     let pageSize: Int
-    let page: Int
+    var page: Int
 
     init(
         query: String = "",
@@ -23,6 +23,10 @@ struct FetchNewsRequest {
         self.sortBy = sortBy
         self.pageSize = pageSize
         self.page = page
+    }
+    
+    mutating func resetPage() {
+        self.page = 1
     }
 }
 

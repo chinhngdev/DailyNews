@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NewsUseCaseProtocol {
-    func getNews(with requestValue: FetchNewsRequest) async throws -> [Article]
+    func getNews(with requestValue: FetchNewsRequestParams) async throws -> [Article]
     func getNewsSources(with request: NewsSourceRequest) async throws -> [NewsSource]
 }
 
@@ -25,7 +25,7 @@ final class NewsUseCase {
 }
 
 extension NewsUseCase: NewsUseCaseProtocol {
-    func getNews(with requestValue: FetchNewsRequest) async throws -> [Article] {
+    func getNews(with requestValue: FetchNewsRequestParams) async throws -> [Article] {
         
         // TODO: Check for internet connection before making the request
         

@@ -16,7 +16,7 @@ final class NewsRepository {
 }
 
 extension NewsRepository: NewsRepositoryProtocol {
-    func getNews(with requestValue: FetchNewsRequest) async throws -> ArticleResponseDTO {
+    func getNews(with requestValue: FetchNewsRequestParams) async throws -> ArticleResponseDTO {
         let router = NewsRouter.everything(requestValue)
         let response = try await networkService.request(router, responseType: ArticleResponseDTO.self)
         

@@ -69,16 +69,22 @@ final class NewsListViewController: UIViewController {
         }
         
         viewModel.onArticlesUpdated = { [weak self] articles in
-            self?.articles = articles
+            self?.articles.append(contentsOf: articles)
             self?.newsListView.reloadData()
             self?.updateEmptyViewVisibility()
             print("✅ Loaded \(articles.count) articles")
+            print("number of articles: \(self?.articles.count ?? 0)")
         }
         
         viewModel.onErrorChanged = { [weak self] errorMessage in
             if let error = errorMessage {
                 self?.showError(error)
             }
+        }
+        
+        viewModel.onResettingPage = { [weak self] in
+            self?.articles.removeAll()
+            self?.newsListView.reloadData()
         }
     }
     
@@ -151,6 +157,15 @@ extension NewsListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let article = articles[indexPath.row]
         didSelectArticle(article)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastArticleIndex = articles.count - 1
+        
+        // Load more when reaching last 5 items
+        if indexPath.row == lastArticleIndex - 2 {
+            viewModel.loadMoreNews()
+        }
     }
 }
 
