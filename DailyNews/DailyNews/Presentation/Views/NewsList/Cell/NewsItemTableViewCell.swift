@@ -12,7 +12,7 @@ final class NewsItemTableViewCell: UITableViewCell {
 
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .clear
         return view
     }()
 
