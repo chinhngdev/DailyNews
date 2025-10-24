@@ -9,7 +9,7 @@ import Foundation
 
 enum NewsRouter: APIRouter {
     case everything(FetchNewsRequestParams)
-    case newsSources(NewsSourceRequest)
+    case newsSources(NewsSourceRequestParams)
     case topHeadlines
 
     var endpoint: String {

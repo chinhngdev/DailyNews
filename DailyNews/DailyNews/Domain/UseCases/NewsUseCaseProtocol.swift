@@ -9,7 +9,7 @@ import Foundation
 
 protocol NewsUseCaseProtocol {
     func getNews(with requestValue: FetchNewsRequestParams) async throws -> ArticleResponse
-    func getNewsSources(with request: NewsSourceRequest) async throws -> [NewsSource]
+    func getNewsSources(with request: NewsSourceRequestParams) async throws -> [NewsSource]
 }
 
 final class NewsUseCase {
@@ -33,7 +33,7 @@ extension NewsUseCase: NewsUseCaseProtocol {
         return articleResponseDTO.toDomain()
     }
 
-    func getNewsSources(with request: NewsSourceRequest) async throws -> [NewsSource] {
+    func getNewsSources(with request: NewsSourceRequestParams) async throws -> [NewsSource] {
         let newsSourcesResponseDTO = try await newsRepository.getNewsSources(with: request)
         return newsSourcesResponseDTO.sources?.compactMap { $0.toDomain() } ?? []
     }

@@ -45,7 +45,7 @@ extension NewsRepository: NewsRepositoryProtocol {
         }
     }
 
-    func getNewsSources(with request: NewsSourceRequest) async throws -> NewsSourcesResponseDTO {
+    func getNewsSources(with request: NewsSourceRequestParams) async throws -> NewsSourcesResponseDTO {
         let router = NewsRouter.newsSources(request)
         let response = try await networkService.request(router, responseType: NewsSourcesResponseDTO.self)
 

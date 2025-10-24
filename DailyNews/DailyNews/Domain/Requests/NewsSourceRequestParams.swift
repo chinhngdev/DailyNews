@@ -1,5 +1,5 @@
 //
-//  NewsSourceRequest.swift
+//  NewsSourceRequestParams.swift
 //  DailyNews
 //
 //  Created by Chinh on 8/22/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsSourceRequest {
+struct NewsSourceRequestParams {
     var category: String?
     var language: String?
     var country: String?
