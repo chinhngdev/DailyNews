@@ -15,7 +15,22 @@ final class FavouriteSourcesCoordinator: Coordinator {
         self.router = router
     }
 
-    func present(animated: Bool, onDismissed: (() -> Void)?) {}
+    func present(animated: Bool, onDismissed: (() -> Void)?) {
+        let newsRepository = NewsRepository()
+        let newsUseCase = NewsUseCase(newsRepository: newsRepository)
+        let viewModel = DefaultFavouriteSourcesViewModel(
+            newsUseCase: newsUseCase
+        )
+        let viewController = FavouriteSourcesViewController.instantiate(
+            with: viewModel,
+            delegate: self
+        )
+        router.present(
+            viewController,
+            animated: animated,
+            onDismissed: onDismissed
+        )
+    }
 }
 
 extension FavouriteSourcesCoordinator: FavouriteSourcesViewControllerDelegate {}

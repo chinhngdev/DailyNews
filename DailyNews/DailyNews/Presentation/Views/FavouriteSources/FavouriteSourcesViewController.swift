@@ -13,6 +13,9 @@ final class FavouriteSourcesViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: FavouriteSourcesViewModel!
     private weak var delegate: FavouriteSourcesViewControllerDelegate?
+    
+    // additional properties
+    private var newsSources: [NewsSource] = []
 
     // MARK: - UI Components
     private lazy var favouriteSourcesTableView: UITableView = {
@@ -28,6 +31,7 @@ final class FavouriteSourcesViewController: UIViewController {
         setupUI()
         setupNavigationBar()
         bindToViewModel()
+        viewModel.fetchNewsSources()
     }
 
     private func setupUI() {
@@ -42,17 +46,23 @@ final class FavouriteSourcesViewController: UIViewController {
     }
     
     private func bindToViewModel() {
+        viewModel.onSourcesUpdated = { [weak self] newsSources in
+            self?.newsSources.append(contentsOf: newsSources)
+            self?.favouriteSourcesTableView.reloadData()
+        }
     }
 }
 
 extension FavouriteSourcesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return newsSources.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteSourceTableViewCell.reuseIdentifier, for: indexPath) as! FavouriteSourceTableViewCell
+        let source = newsSources[indexPath.row]
+        cell.configure(with: source)
         return cell
     }
 }
