@@ -159,6 +159,7 @@ extension NewsListViewController: UITableViewDelegate {
         didSelectArticle(article)
     }
     
+    // TODO: Phần load more cần tối ưu thêm. Nên hỗ trợ cache.
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastArticleIndex = articles.count - 1
         
