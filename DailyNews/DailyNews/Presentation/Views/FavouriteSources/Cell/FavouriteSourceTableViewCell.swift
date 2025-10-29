@@ -23,6 +23,11 @@ final class FavouriteSourceTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var starView: StarView = {
+        let star = StarView(isFilled: true, fillColor: .systemYellow, strokeColor: .systemGray)
+        return star
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -41,7 +46,15 @@ final class FavouriteSourceTableViewCell: UITableViewCell {
         containerView.addSubview(newsSourceLabel)
         newsSourceLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(AppSpacing.mediumSmall.value)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
+        
+        containerView.addSubview(starView)
+        starView.snp.makeConstraints {
+            $0.leading.equalTo(newsSourceLabel.snp.trailing).offset(AppSpacing.small.value)
+            $0.trailing.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(24)
         }
     }
 }
