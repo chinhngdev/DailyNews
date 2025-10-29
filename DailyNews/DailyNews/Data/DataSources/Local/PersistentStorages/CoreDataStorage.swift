@@ -40,10 +40,6 @@ final class CoreDataStorage {
     private var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-
-//    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
-//        persistentContainer.performBackgroundTask(block)
-//    }
     
     func performBackgroundTask<T>(_ block: @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
         return try await persistentContainer.performBackgroundTask(block)
